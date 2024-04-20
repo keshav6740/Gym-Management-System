@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'Apple@1234',
-  database: 'proj',
+  password: 'your_pass',
+  database: 'your_database_name',
   authPlugin: 'mysql_native_password', // Specify the authentication plugin
   authSwitchHandler: (data, cb) => { // Add an authSwitchHandler
     if (data.pluginName === 'caching_sha2_password') {

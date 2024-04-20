@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Custom styles can be added here */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #ffffff;
+        }
+
+        .jumbotron {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        .card {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            height: 200px; /* Set a fixed height for all image holders */
+            object-fit: cover; /* Ensure images cover the entire space without distortion */
+        }
+
+        /* Contact styling */
+        .section-title {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .section-content {
+            margin-bottom: 50px;
+        }
+
+        .contact-info {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+        }
+
+        .contact-info .card-body {
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="registration-success">Gym Management System</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Your Profile</a> <!-- New link for Your Profile -->
+                    </li>
+                </ul>
+            </div>            
+        </div>
+    </nav>
+
+    <div class="jumbotron text-center">
+        <h1>Welcome to Our Gym</h1>
+        <p class="lead">Start your fitness journey with us today!</p>
+    </div>
+
+    <div class="container my-5" id="memberships">
+        <h2 class="section-title text-center">Select your Membership</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card membership-card" id="basicMembership">
+                    <div class="card-body">
+                        <h5 class="card-title">Basic Membership</h5>
+                        <p class="card-text">Access to basic gym facilities and equipments.</p>
+                        <p class="card-text">Price: ₹1000/month</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card membership-card" id="premiumMembership">
+                    <div class="card-body">
+                        <h5 class="card-title">Premium Membership</h5>
+                        <p class="card-text">Access to gym facilities and group fitness classes.</p>
+                        <p class="card-text">Price: ₹1500/month</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card membership-card" id="platinumMembership">
+                    <div class="card-body">
+                        <h5 class="card-title">Platinum Membership</h5>
+                        <p class="card-text">Access to gym facilities, group fitness classes, and personal training sessions.</p>
+                        <p class="card-text">Price: ₹3000/month</p>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    <div class="container my-5" id="contact">
+        <h2 class="section-title text-center">Contact</h2>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card contact-info">
+                    <div class="card-body">
+                        <h5 class="card-title">Contact Information</h5>
+                        <p class="card-text"><i class="fas fa-map-marker-alt"></i> 1st Floor Canara Mall, Udupi , Karnataka</p>
+                        <p class="card-text"><i class="fas fa-phone-alt"></i> +91 9265684017</p>
+                        <p class="card-text"><i class="fas fa-envelope"></i> keshavishan@gym.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add click event listeners to each membership card
+        document.getElementById('basicMembership').addEventListener('click', function () {
+            handleMembershipClick('Basic Membership', 1000); // Hardcoded values for plan and amount
+        });
+
+        document.getElementById('premiumMembership').addEventListener('click', function () {
+            handleMembershipClick('Premium Membership', 1500); // Hardcoded values for plan and amount
+        });
+
+        document.getElementById('platinumMembership').addEventListener('click', function () {
+            handleMembershipClick('Platinum Membership', 3000); // Hardcoded values for plan and amount
+        });
+
+        // Function to handle membership card click
+        function handleMembershipClick(plan, amount) {
+            const userId = localStorage.getItem('userId'); // Fetch user ID from local storage
+            const membershipId = userId; // Assuming membership ID is the same as user ID
+
+            const requestBody = {
+                membershipId: membershipId,
+                plan: plan,
+                amount: amount
+            };
+
+            // Send the data to the server
+            fetch('/add-membership', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Membership added successfully');
+                    // Handle success (e.g., show a success message)
+                    redirectToMembershipPage(plan); // Redirect to the respective membership page
+                } else {
+                    console.error('Error adding membership:', response.statusText);
+                    // Handle error (e.g., show an error message)
+                }
+            })
+            .catch(error => {
+                console.error('Error adding membership:', error);
+                // Handle error (e.g., show an error message)
+            });
+        }
+
+        // Function to redirect to the respective membership page
+        function redirectToMembershipPage(plan) {
+            let redirectUrl;
+            switch (plan) {
+                case 'Basic Membership':
+                    redirectUrl = 'basic_class.html';
+                    break;
+                case 'Premium Membership':
+                    redirectUrl = 'premium_class.html';
+                    break;
+                case 'Platinum Membership':
+                    redirectUrl = 'platinum_class.html';
+                    break;
+                default:
+                    redirectUrl = 'index.html'; // Default redirection
+                    break;
+            }
+            window.location.href = redirectUrl;
+        }
+    });
+</script>
+
+</body>
+
+</html>

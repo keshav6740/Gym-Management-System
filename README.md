@@ -48,7 +48,8 @@ Welcome to the Gym Management System project! This system is designed to manage 
 
 6. Start the server:
    ```bash
-   node server.js
+   npm install -g nodemon
+   nodemon App.js
    ```
 
 7. Access the application in your browser at `http://localhost:5000`.

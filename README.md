@@ -25,7 +25,7 @@ Welcome to the Gym Management System project! This system is designed to manage 
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/gym-management-system.git
+   git clone https://github.com/keshav6740/gym-management-system.git
    ```
 
 2. Navigate to the project directory:

@@ -76,12 +76,14 @@ Welcome to FlexFusion Elite, a full-stack web application designed to manage a p
 ├── routes/
 │   ├── admin.js          # Admin CRUD routes
 │   ├── auth.js           # Registration & Login routes
+│   ├── public.js        
 │   └── user.js           # Member-specific routes
 ├── .env                  # Environment variables (local)
 ├── .gitignore
 ├── package.json
 ├── README.md
 ├── seedAdmin.js          # Script to create the first admin
+├── seedClasses.js        # Script to create classes
 └── server.js             # Main Express server
 ```
 

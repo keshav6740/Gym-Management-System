@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Membership - FlexFusion Elite</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #667eea !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Membership Cards */
+        .membership-section {
+            padding: 100px 0;
+            background: #0a0a0a;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .membership-card {
+            background: #1a1a1a;
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            height: 100%;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .membership-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 80px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .membership-card.popular {
+            border-color: #ffd700;
+            position: relative;
+        }
+
+        .membership-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .plan-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .basic-plan .plan-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .premium-plan .plan-icon {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .platinum-plan .plan-icon {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+        }
+
+        .plan-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .plan-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-period {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .plan-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .plan-features li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .select-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .select-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .premium-plan .select-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .platinum-plan .select-btn {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            background: #111111;
+        }
+
+        .contact-card {
+            background: #1a1a1a;
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+        }
+
+        /* Selection Animation */
+        .membership-card.selected {
+            border-color: #4ade80;
+            box-shadow: 0 0 30px rgba(74, 222, 128, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 30px rgba(74, 222, 128, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(74, 222, 128, 0.6); }
+            100% { box-shadow: 0 0 30px rgba(74, 222, 128, 0.3); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .membership-card {
+                margin-bottom: 2rem;
+                min-height: auto;
+            }
+            
+            .plan-price {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s ease-in-out infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modern Navbar -->
+    <!-- Standard Logged-In Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="home-page.html">
+            <div class="brand-icon">
+                <i class="fas fa-dumbbell"></i>
+            </div>
+            FlexFusion Elite
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home-page.html">Memberships</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="classes.html">Classes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Choose Your Elite Plan</h1>
+            <p class="hero-subtitle">Select the perfect membership to unlock your fitness potential and join our premium community</p>
+        </div>
+    </section>
+
+    <!-- Membership Plans -->
+    <section class="membership-section">
+        <div class="container">
+            <h2 class="section-title">Membership Plans</h2>
+            <p class="section-subtitle">Flexible plans designed to fit your lifestyle and fitness goals</p>
+            
+            <div class="row">
+                <!-- Basic Plan -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="membership-card basic-plan" id="basicMembership">
+                        <div>
+                            <div class="plan-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h3 class="plan-name">Basic Elite</h3>
+                            <div class="plan-price">₹1,000</div>
+                            <div class="plan-period">per month</div>
+                            <p class="plan-description">Perfect for fitness beginners ready to start their transformation journey with essential gym access.</p>
+                            <ul class="plan-features">
+                                <li>Access to basic gym equipment</li>
+                                <li>Locker room facilities</li>
+                                <li>Basic fitness assessment</li>
+                                <li>Mobile app access</li>
+                                <li>Community support</li>
+                                <li>Standard operating hours</li>
+                            </ul>
+                        </div>
+                        <button class="select-btn">Select Basic Plan</button>
+                    </div>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="membership-card premium-plan popular" id="premiumMembership">
+                        <div>
+                            <div class="plan-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3 class="plan-name">Premium Elite</h3>
+                            <div class="plan-price">₹1,500</div>
+                            <div class="plan-period">per month</div>
+                            <p class="plan-description">Enhanced experience with group classes and additional amenities for serious fitness enthusiasts.</p>
+                            <ul class="plan-features">
+                                <li>All Basic Elite benefits</li>
+                                <li>Group fitness classes</li>
+                                <li>Nutrition consultation</li>
+                                <li>Priority booking system</li>
+                                <li>Guest passes (2 per month)</li>
+                                <li>Extended operating hours</li>
+                            </ul>
+                        </div>
+                        <button class="select-btn">Select Premium Plan</button>
+                    </div>
+                </div>
+
+                <!-- Platinum Plan -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="membership-card platinum-plan" id="platinumMembership">
+                        <div>
+                            <div class="plan-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h3 class="plan-name">Platinum Elite</h3>
+                            <div class="plan-price">₹3,000</div>
+                            <div class="plan-period">per month</div>
+                            <p class="plan-description">Ultimate luxury experience with personal training and exclusive perks for elite members.</p>
+                            <ul class="plan-features">
+                                <li>All Premium Elite benefits</li>
+                                <li>Personal training sessions</li>
+                                <li>VIP locker room access</li>
+                                <li>Unlimited guest passes</li>
+                                <li>Exclusive member events</li>
+                                <li>24/7 gym access</li>
+                            </ul>
+                        </div>
+                        <button class="select-btn">Select Platinum Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="contact-card">
+                        <h3 class="contact-title">Get In Touch</h3>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>1st Floor Canara Mall, Udupi, Karnataka</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+91 9265684017</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contact@flexfusionelite.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        // Clear all user data from storage
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('fullName');
+        localStorage.removeItem('email');
+        // Redirect to login page
+        window.location.href = 'login.html';
+    });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add click event listeners to each membership card
+            document.getElementById('basicMembership').addEventListener('click', function () {
+                handleMembershipClick('Basic Membership', 1000, this);
+            });
+
+            document.getElementById('premiumMembership').addEventListener('click', function () {
+                handleMembershipClick('Premium Membership', 1500, this);
+            });
+
+            document.getElementById('platinumMembership').addEventListener('click', function () {
+                handleMembershipClick('Platinum Membership', 3000, this);
+            });
+
+            function handleMembershipClick(plan, amount, cardElement) {
+    // Show loading state
+    cardElement.classList.add('loading');
+
+    // Remove selected state from all cards
+    document.querySelectorAll('.membership-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+
+    // 1. Get the authentication token from localStorage
+    const token = localStorage.getItem('token');
+
+    // 2. Check if the user is logged in
+    if (!token) {
+        alert('You must be logged in to select a membership.');
+        window.location.href = 'login.html'; // Redirect to login if not logged in
+        return; // Stop the function
+    }
+    
+    // Add selected state to the clicked card after a short delay
+    setTimeout(() => {
+        cardElement.classList.remove('loading');
+        cardElement.classList.add('selected');
+    }, 1000);
+
+    const requestBody = {
+        plan: plan // The backend expects a plan name like "Basic Membership"
+    };
+
+    // 3. Send the data to the correct API endpoint with the Authorization header
+    fetch('/api/user/membership', { // Correct API path
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // This is the crucial part
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => {
+        if (!response.ok) {
+            // If the server responds with an error (e.g., 401 Unauthorized)
+            throw new Error('Failed to update membership. Please log in again.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            console.log('Membership updated successfully');
+            // Show success feedback and redirect
+            setTimeout(() => {
+                redirectToMembershipPage(plan);
+            }, 1500);
+        } else {
+            throw new Error(data.message || 'An unknown error occurred.');
+        }
+    })
+    .catch(error => {
+        console.error('Error adding membership:', error);
+        alert(error.message); // Show the error to the user
+        cardElement.classList.remove('loading', 'selected');
+    });
+}
+
+            function redirectToMembershipPage(plan) {
+                let redirectUrl;
+                switch (plan) {
+                    case 'Basic Membership':
+                        redirectUrl = 'basic_class.html';
+                        break;
+                    case 'Premium Membership':
+                        redirectUrl = 'premium_class.html';
+                        break;
+                    case 'Platinum Membership':
+                        redirectUrl = 'platinum_class.html';
+                        break;
+                    default:
+                        redirectUrl = 'index.html';
+                        break;
+                }
+                window.location.href = redirectUrl;
+            }
+        });
+
+        // Add entrance animations
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.membership-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.6s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200 + 500);
+            });
+        });
+    </script>
+</body>
+</html>

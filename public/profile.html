@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - FlexFusion Elite</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 0 2rem;
+            margin-top: 76px;
+            /* Adjust for fixed navbar height */
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            text-align: center;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .membership-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Profile Content */
+        .profile-content {
+            padding: 3rem 0;
+        }
+
+        .profile-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .info-value {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Modal styling */
+        .modal-content {
+            background-color: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header,
+        .modal-footer {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header .close {
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: #667eea;
+            box-shadow: none;
+            color: #fff;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Standard Logged-In Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="home-page.html">
+                <div class="brand-icon"><i class="fas fa-dumbbell"></i></div>
+                FlexFusion Elite
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="home-page.html">Memberships</a></li>
+                    <li class="nav-item"><a class="nav-link" href="classes.html">Classes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Header -->
+    <section class="profile-header">
+        <div class="container">
+            <div class="profile-avatar" id="profileAvatar"><i class="fas fa-user"></i></div>
+            <h1 class="profile-name" id="profileName">Loading...</h1>
+            <p class="profile-email" id="profileEmail">Loading...</p>
+            <div class="text-center">
+                <span class="membership-badge" id="membershipBadge">Loading...</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Content -->
+    <section class="profile-content">
+        <div class="container">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-lg-8">
+                    <!-- Placeholder cards -->
+                    <div class="profile-card">
+                        <h3 class="card-title">
+                            <div class="card-icon"><i class="fas fa-chart-line"></i></div>Fitness Stats
+                        </h3>
+                        <p class="text-muted">Your detailed fitness stats will appear here soon.</p>
+                    </div>
+                    <div class="profile-card">
+                        <h3 class="card-title">
+                            <div class="card-icon"><i class="fas fa-history"></i></div>Recent Activity
+                        </h3>
+                        <p class="text-muted">Your recent workouts and class bookings will appear here.</p>
+                    </div>
+                </div>
+
+                <!-- Right Column (Sidebar) -->
+                <div class="col-lg-4">
+                    <!-- Profile Information -->
+                    <div class="profile-card">
+                        <h3 class="card-title">
+                            <div class="card-icon"><i class="fas fa-user-circle"></i></div>Profile Information
+                        </h3>
+                        <ul class="info-grid">
+                            <li class="info-item"><span class="info-label">Member Since</span><span class="info-value"
+                                    id="memberSince">...</span></li>
+                            <li class="info-item"><span class="info-label">Membership Plan</span><span
+                                    class="info-value" id="membershipPlan">...</span></li>
+                            <li class="info-item"><span class="info-label">Status</span><span class="info-value"
+                                    id="membershipStatus">...</span></li>
+                        </ul>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#editProfileModal"
+                                id="editProfileBtn" style="width: 100%;">
+                                <i class="fas fa-edit"></i> Edit Profile
+                            </button>
+                            <button class="btn btn-outline" id="settingsBtn" style="width: 100%;">
+                                <i class="fas fa-cog"></i> Settings
+                            </button>
+                        </div>
+                    </div>
+                    <div class="profile-card">
+                        <h3 class="card-title">
+                            <div class="card-icon"><i class="fas fa-crown"></i></div>Membership
+                        </h3>
+                        <p id="membershipDescription" class="text-muted">Loading your benefits...</p>
+                        <div class="text-center mt-3">
+                            <button class="btn btn-primary" id="upgradePlanBtn" style="width: 100%;">
+                                <i class="fas fa-arrow-up"></i> Change Plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <form id="editProfileForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="editFullName">Full Name</label>
+                            <input type="text" class="form-control" id="editFullName" required>
+                        </div>
+                        <p class="text-muted small">Leave password fields blank to keep your current password.</p>
+                        <div class="form-group">
+                            <label for="editPassword">New Password (min. 6 characters)</label>
+                            <input type="password" class="form-control" id="editPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmEditPassword">Confirm New Password</label>
+                            <input type="password" class="form-control" id="confirmEditPassword">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Wrap all logic in DOMContentLoaded to ensure the page elements are ready.
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- 1. GRAB THE TOKEN AND CHECK AUTHENTICATION ---
+            const token = localStorage.getItem('token');
+            if (!token) {
+                // If there's no token, redirect to login immediately.
+                // This is the most important security check.
+                window.location.href = 'login.html';
+                return; // Stop executing the rest of the script.
+            }
+
+            // --- 2. DEFINE ALL PAGE ELEMENTS ---
+            // We define these *after* the auth check because they are only needed if the user is logged in.
+            const logoutBtn = document.getElementById('logoutBtn');
+            const upgradePlanBtn = document.getElementById('upgradePlanBtn');
+            const settingsBtn = document.getElementById('settingsBtn');
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const editProfileForm = document.getElementById('editProfileForm');
+            const editFullNameInput = document.getElementById('editFullName');
+            const editPasswordInput = document.getElementById('editPassword');
+            const confirmEditPasswordInput = document.getElementById('confirmEditPassword');
+
+            // --- 3. FETCH AND POPULATE PROFILE DATA ---
+            fetch('/api/user/profile', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    // This handles cases where the token is present but invalid/expired.
+                    throw new Error('Session expired. Please log in again.');
+                }
+                if (!res.ok) {
+                    throw new Error('Failed to load your profile.');
+                }
+                return res.json();
+            })
+            .then(user => {
+                // Populate the page with data from the server
+                document.getElementById('profileName').textContent = user.fullName;
+                document.getElementById('profileEmail').textContent = user.email;
+                document.getElementById('profileAvatar').innerHTML = `<span style="font-size: 3rem; font-weight: 700;">${user.fullName.charAt(0).toUpperCase()}</span>`;
+                
+                const membershipPlan = user.membership.plan || 'No Plan';
+                document.getElementById('membershipBadge').textContent = `${membershipPlan} Elite Member`;
+                document.getElementById('memberSince').textContent = new Date(user.joinDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+                document.getElementById('membershipPlan').textContent = `${membershipPlan} Elite`;
+                document.getElementById('membershipStatus').textContent = user.membership.paymentStatus || 'N/A';
+                
+                const descriptions = {
+                    'Basic': 'Access to all basic gym equipment and facilities.',
+                    'Premium': 'Access to group classes and nutrition consultations.',
+                    'Platinum': 'Exclusive access to personal training and all VIP amenities.',
+                    'No Plan': 'You do not have an active membership. Select a plan to get started!'
+                };
+                document.getElementById('membershipDescription').textContent = descriptions[membershipPlan];
+            })
+            .catch(err => {
+                // If fetching fails for any reason, log out the user.
+                console.error('Profile loading error:', err.message);
+                alert(err.message);
+                localStorage.clear();
+                window.location.href = 'login.html';
+            });
+
+            // --- 4. SETUP EVENT LISTENERS FOR BUTTONS ---
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                });
+            }
+
+            if (upgradePlanBtn) {
+                upgradePlanBtn.addEventListener('click', () => window.location.href = 'home-page.html');
+            }
+
+            if (settingsBtn) {
+                settingsBtn.addEventListener('click', () => window.location.href = 'settings.html');
+            }
+
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', () => {
+                    editFullNameInput.value = localStorage.getItem('fullName') || '';
+                    editPasswordInput.value = '';
+                    confirmEditPasswordInput.value = '';
+                });
+            }
+
+            if (editProfileForm) {
+                editProfileForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const newFullName = editFullNameInput.value;
+                    const newPassword = editPasswordInput.value;
+                    const confirmPassword = confirmEditPasswordInput.value;
+
+                    if (newFullName.trim() === '') return alert('Full Name cannot be empty.');
+                    if (newPassword && newPassword.length < 6) return alert('New password must be at least 6 characters long.');
+                    if (newPassword && newPassword !== confirmPassword) return alert('New passwords do not match.');
+
+                    const updateData = { fullName: newFullName };
+                    if (newPassword) updateData.password = newPassword;
+
+                    const saveButton = editProfileForm.querySelector('button[type="submit"]');
+                    saveButton.disabled = true;
+                    saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+                    fetch('/api/user/profile', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(updateData)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.success) throw new Error(data.msg || 'Failed to update profile.');
+                        
+                        localStorage.setItem('fullName', data.user.fullName);
+
+                        if (updateData.password) {
+                            alert('Password changed successfully! Please log in again with your new password.');
+                            localStorage.clear();
+                            window.location.href = 'login.html';
+                        } else {
+                            alert('Profile name updated successfully!');
+                            document.getElementById('profileName').textContent = data.user.fullName;
+                            document.getElementById('profileAvatar').innerHTML = `<span style="font-size: 3rem; font-weight: 700;">${data.user.fullName.charAt(0).toUpperCase()}</span>`;
+                            $('#editProfileModal').modal('hide');
+                        }
+                    })
+                    .catch(err => alert(err.message))
+                    .finally(() => {
+                        saveButton.disabled = false;
+                        saveButton.innerHTML = 'Save Changes';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

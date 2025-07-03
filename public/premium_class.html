@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Elite Classes - FlexFusion Elite</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #f093fb !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .membership-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        /* Classes Section */
+        .classes-section {
+            padding: 100px 0;
+            background: #0a0a0a;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .class-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+        }
+
+        .class-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(240, 147, 251, 0.2);
+            border-color: rgba(240, 147, 251, 0.3);
+        }
+
+        .class-card.premium::before {
+            content: 'PREMIUM';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .class-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .class-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .class-difficulty {
+            background: rgba(240, 147, 251, 0.2);
+            color: #f093fb;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .class-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .class-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .class-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .detail-icon {
+            color: #f093fb;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .detail-value {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .book-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.4);
+        }
+
+        .book-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Exclusive Features */
+        .exclusive-section {
+            padding: 80px 0;
+            background: #111111;
+        }
+
+        .feature-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(240, 147, 251, 0.2);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(240, 147, 251, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Schedule Section */
+        .schedule-section {
+            padding: 80px 0;
+            background: #0a0a0a;
+        }
+
+        .schedule-table {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-x: auto;
+        }
+
+        .table {
+            color: #ffffff;
+            background: transparent;
+            margin: 0;
+        }
+
+        .table thead th {
+            border-top: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .table tbody td {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .schedule-slot {
+            background: rgba(240, 147, 251, 0.1);
+            border: 1px solid rgba(240, 147, 251, 0.3);
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 0.9rem;
+            color: #f093fb;
+            font-weight: 500;
+        }
+
+        .schedule-slot.available {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-slot.available:hover {
+            background: rgba(240, 147, 251, 0.2);
+            transform: scale(1.05);
+        }
+
+        .schedule-slot.premium {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%);
+            border-color: #f093fb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .class-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .schedule-table {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modern Navbar -->
+    <!-- Standard Logged-In Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="home-page.html">
+            <div class="brand-icon">
+                <i class="fas fa-dumbbell"></i>
+            </div>
+            FlexFusion Elite
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home-page.html">Memberships</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="classes.html">Classes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="membership-badge">
+                <i class="fas fa-crown"></i> Premium Elite Member
+            </div>
+            <h1 class="hero-title">Premium Classes</h1>
+            <p class="hero-subtitle">Access exclusive premium classes with expert instructors and advanced training methods</p>
+        </div>
+    </section>
+
+    <!-- Available Classes -->
+    <section class="classes-section">
+        <div class="container">
+            <h2 class="section-title">Premium Class Collection</h2>
+            <p class="section-subtitle">Elevate your fitness with our exclusive premium classes and specialized training programs</p>
+            
+            <div class="row">
+                <!-- HIIT Intensive -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card premium">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="class-difficulty">Advanced</div>
+                        </div>
+                        <h3 class="class-title">HIIT Intensive</h3>
+                        <p class="class-description">High-intensity interval training with premium equipment and personalized coaching for maximum results.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">60 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-fire"></i></div>
+                                <div class="detail-label">Calories</div>
+                                <div class="detail-value">500-700</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-users"></i></div>
+                                <div class="detail-label">Max Size</div>
+                                <div class="detail-value">8 people</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('HIIT Intensive')">
+                            <i class="fas fa-calendar-plus"></i> Book Premium Class
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Power Yoga -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card premium">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-om"></i>
+                            </div>
+                            <div class="class-difficulty">Intermediate</div>
+                        </div>
+                        <h3 class="class-title">Power Yoga Flow</h3>
+                        <p class="class-description">Dynamic yoga sequences combining strength, flexibility, and mindfulness in a heated studio environment.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">75 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-fire"></i></div>
+                                <div class="detail-label">Calories</div>
+                                <div class="detail-value">300-450</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-users"></i></div>
+                                <div class="detail-label">Max Size</div>
+                                <div class="detail-value">12 people</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('Power Yoga Flow')">
+                            <i class="fas fa-calendar-plus"></i> Book Premium Class
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Functional Training -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card premium">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <div class="class-difficulty">Advanced</div>
+                        </div>
+                        <h3 class="class-title">Functional Training</h3>
+                        <p class="class-description">Real-world movement patterns using kettlebells, battle ropes, and functional equipment.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">55 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-fire"></i></div>
+                                <div class="detail-label">Calories</div>
+                                <div class="detail-value">400-550</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-users"></i></div>
+                                <div class="detail-label">Max Size</div>
+                                <div class="detail-value">10 people</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('Functional Training')">
+                            <i class="fas fa-calendar-plus"></i> Book Premium Class
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Spin Class Elite -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card premium">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-bicycle"></i>
+                            </div>
+                            <div class="class-difficulty">All Levels</div>
+                        </div>
+                        <h3 class="class-title">Spin Class Elite</h3>
+                        <p class="class-description">Premium indoor cycling with immersive lighting, music, and performance tracking technology.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">45 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-fire"></i></div>
+                                <div class="detail-label">Calories</div>
+                                <div class="detail-value">450-600</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-users"></i></div>
+                                <div class="detail-label">Max Size</div>
+                                <div class="detail-value">15 people</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('Spin Class Elite')">
+                            <i class="fas fa-calendar-plus"></i> Book Premium Class
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Boxing Fundamentals -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card premium">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-fist-raised"></i>
+                            </div>
+                            <div class="class-difficulty">Intermediate</div>
+                        </div>
+                        <h3 class="class-title">Boxing Fundamentals</h3>
+                        <p class="class-description">Learn proper boxing techniques with heavy bags, speed bags, and professional coaching.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">50 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-fire"></i></div>
+                                <div class="detail-label">Calories</div>
+                                <div class="detail-value">400-500</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-users"></i></div>
+                                <div class="detail-label">Max Size</div>
+                                <div class="detail-value">8 people</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('Boxing Fundamentals')">
+                            <i class="fas fa-calendar-plus"></i> Book Premium Class
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pilates Reformer -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card premium">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div class="class-difficulty">All Levels</div>
+                        </div>
+                        <h3 class="class-title">Pilates Reformer</h3>
+                        <p class="class-description">Precision movement on professional Pilates reformer machines for core strength and flexibility.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">60 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-fire"></i></div>
+                                <div class="detail-label">Calories</div>
+                                <div class="detail-value">250-350</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-users"></i></div>
+                                <div class="detail-label">Max Size</div>
+                                <div class="detail-value">6 people</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('Pilates Reformer')">
+                            <i class="fas fa-calendar-plus"></i> Book Premium Class
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Features -->
+    <section class="exclusive-section">
+        <div class="container">
+            <h2 class="section-title">Premium Member Benefits</h2>
+            <p class="section-subtitle">Exclusive perks and services included with your Premium Elite membership</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h4 class="feature-title">Expert Instructors</h4>
+                        <p class="feature-description">Train with certified professionals who provide personalized guidance and form correction.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <h4 class="feature-title">Nutrition Consultation</h4>
+                        <p class="feature-description">Monthly one-on-one sessions with our certified nutritionist to optimize your diet plan.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h4 class="feature-title">Priority Booking</h4>
+                        <p class="feature-description">Book classes up to 7 days in advance with guaranteed spots in popular sessions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weekly Schedule -->
+    <section class="schedule-section">
+        <div class="container">
+            <h2 class="section-title">Premium Class Schedule</h2>
+            <p class="section-subtitle">Your exclusive access to premium classes throughout the week</p>
+            
+            <div class="schedule-table">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>6:00 AM</strong></td>
+                                <td><div class="schedule-slot premium available">HIIT Intensive</div></td>
+                                <td><div class="schedule-slot premium available">Functional Training</div></td>
+                                <td><div class="schedule-slot premium available">HIIT Intensive</div></td>
+                                <td><div class="schedule-slot premium available">Boxing Fundamentals</div></td>
+                                <td><div class="schedule-slot premium available">Spin Elite</div></td>
+                                <td><div class="schedule-slot premium available">Power Yoga</div></td>
+                            </tr>
+                            <tr>
+                                <td><strong>7:30 AM</strong></td>
+                                <td><div class="schedule-slot premium available">Power Yoga</div></td>
+                                <td><div class="schedule-slot premium available">Pilates Reformer</div></td>
+                                <td><div class="schedule-slot premium available">Power Yoga</div></td>
+                                <td><div class="schedule-slot premium available">Functional Training</div></td>
+                                <td><div class="schedule-slot premium available">HIIT Intensive</div></td>
+                                <td><div class="schedule-slot premium available">Boxing Fundamentals</div></td>
+                            </tr>
+                            <tr>
+                                <td><strong>12:00 PM</strong></td>
+                                <td><div class="schedule-slot premium available">Pilates Reformer</div></td>
+                                <td><div class="schedule-slot premium available">Spin Elite</div></td>
+                                <td><div class="schedule-slot premium available">Pilates Reformer</div></td>
+                                <td><div class="schedule-slot premium available">Power Yoga</div></td>
+                                <td><div class="schedule-slot premium available">Boxing Fundamentals</div></td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6:00 PM</strong></td>
+                                <td><div class="schedule-slot premium available">Boxing Fundamentals</div></td>
+                                <td><div class="schedule-slot premium available">HIIT Intensive</div></td>
+                                <td><div class="schedule-slot premium available">Functional Training</div></td>
+                                <td><div class="schedule-slot premium available">Spin Elite</div></td>
+                                <td><div class="schedule-slot premium available">Power Yoga</div></td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>7:30 PM</strong></td>
+                                <td><div class="schedule-slot premium available">Spin Elite</div></td>
+                                <td><div class="schedule-slot premium available">Power Yoga</div></td>
+                                <td><div class="schedule-slot premium available">Boxing Fundamentals</div></td>
+                                <td><div class="schedule-slot premium available">Pilates Reformer</div></td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        // Clear all user data from storage
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('fullName');
+        localStorage.removeItem('email');
+        // Redirect to login page
+        window.location.href = 'login.html';
+    });
+        function bookClass(className) {
+            if (confirm(`Book ${className} premium class?`)) {
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking Premium Class...';
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-crown"></i> Premium Booked!';
+                    btn.style.background = 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)';
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        btn.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                    }, 2000);
+                }, 1500);
+                
+                const bookings = JSON.parse(localStorage.getItem('classBookings') || '[]');
+                bookings.push({
+                    className: className,
+                    date: new Date().toISOString(),
+                    status: 'booked',
+                    type: 'premium'
+                });
+                localStorage.setItem('classBookings', JSON.stringify(bookings));
+            }
+        }
+
+        document.querySelectorAll('.schedule-slot.available').forEach(slot => {
+            slot.addEventListener('click', function() {
+                const className = this.textContent;
+                bookClass(className);
+            });
+        });
+
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.class-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200 + 300);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - FlexFusion Elite</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+        .main-container {
+            margin-top: 100px;
+        }
+        .settings-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Standard Logged-In Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+        <div class="container">
+            <a class="navbar-brand" href="home-page.html" style="font-weight: 800; font-size: 1.8rem; color: #ffffff !important; display: flex; align-items: center; gap: 10px;">
+                <div class="brand-icon" style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;"><i class="fas fa-dumbbell"></i></div>
+                FlexFusion Elite
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="home-page.html" style="color: rgba(255, 255, 255, 0.8) !important; font-weight: 500; margin: 0 15px;">Memberships</a></li>
+                    <li class="nav-item"><a class="nav-link" href="classes.html" style="color: rgba(255, 255, 255, 0.8) !important; font-weight: 500; margin: 0 15px;">Classes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html" style="color: rgba(255, 255, 255, 0.8) !important; font-weight: 500; margin: 0 15px;">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn" style="color: rgba(255, 255, 255, 0.8) !important; font-weight: 500; margin: 0 15px;">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="settings-card">
+                    <h2 class="card-title">Settings</h2>
+                    <div class="setting-item">
+                        <span>Email Notifications</span>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="emailNotifications" checked>
+                            <label class="custom-control-label" for="emailNotifications"></label>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <span>SMS Alerts</span>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="smsAlerts">
+                            <label class="custom-control-label" for="smsAlerts"></label>
+                        </div>
+                    </div>
+                    <div class="setting-item mt-4">
+                        <span class="text-danger">Delete Account</span>
+                        <button class="btn btn-danger" id="deleteAccountBtn">Delete</button>
+                    </div>
+                    <p class="text-muted small mt-2">Account deletion is permanent and cannot be undone.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Check for login token
+        if (!localStorage.getItem('token')) {
+            window.location.href = 'login.html';
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.clear();
+            window.location.href = 'login.html';
+        });
+
+        // THIS IS THE NEW, CORRECTED CODE
+document.getElementById('deleteAccountBtn').addEventListener('click', function() {
+    if (confirm('Are you absolutely sure you want to permanently delete your account? This action cannot be undone.')) {
+        
+        const deleteButton = this;
+        deleteButton.disabled = true;
+        deleteButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+
+        const token = localStorage.getItem('token');
+
+        // Make the API call to the DELETE endpoint
+        // Inside the deleteAccountBtn click listener in settings.html
+fetch('/api/user/profile', {
+    method: 'DELETE',
+    headers: { 'Authorization': `Bearer ${token}` }
+})
+.then(res => res.json())
+.then(data => {
+    // Check for the success property we added in the backend
+    if (data.success) {
+        alert(data.msg); // "Your account has been permanently deleted."
+        localStorage.clear();
+        window.location.href = 'index.html';
+    } else {
+        // This will now handle errors sent from the backend, like "User not found"
+        throw new Error(data.msg || 'Failed to delete account.');
+    }
+})
+.catch(err => {
+    console.error('Delete error:', err);
+    alert(err.message);
+    deleteButton.disabled = false;
+    deleteButton.textContent = 'Delete';
+});
+    }
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platinum Elite Classes - FlexFusion Elite</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffd89b !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .membership-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Classes Section */
+        .classes-section {
+            padding: 100px 0;
+            background: #0a0a0a;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .class-card {
+            background: #1a1a1a;
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid transparent;
+            background-image: linear-gradient(#1a1a1a, #1a1a1a), linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            transition: all 0.4s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .class-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 216, 155, 0.05) 0%, rgba(25, 84, 123, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .class-card:hover::before {
+            opacity: 1;
+        }
+
+        .class-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(255, 216, 155, 0.2);
+        }
+
+        .class-card.platinum::after {
+            content: 'PLATINUM EXCLUSIVE';
+            position: absolute;
+            top: -12px;
+            right: 25px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(255, 216, 155, 0.3);
+        }
+
+        .class-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .class-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 216, 155, 0.3);
+        }
+
+        .class-difficulty {
+            background: rgba(255, 216, 155, 0.2);
+            color: #ffd89b;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 216, 155, 0.3);
+        }
+
+        .class-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            position: relative;
+            z-index: 2;
+        }
+
+        .class-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .class-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 216, 155, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .detail-item:hover {
+            background: rgba(255, 216, 155, 0.1);
+            border-color: rgba(255, 216, 155, 0.3);
+        }
+
+        .detail-icon {
+            color: #ffd89b;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .detail-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .book-btn {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 10px 30px rgba(255, 216, 155, 0.3);
+        }
+
+        .book-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 216, 155, 0.5);
+        }
+
+        .book-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* VIP Features */
+        .vip-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(255, 216, 155, 0.05) 0%, rgba(25, 84, 123, 0.05) 100%);
+        }
+
+        .vip-card {
+            background: #1a1a1a;
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            border: 2px solid transparent;
+            background-image: linear-gradient(#1a1a1a, #1a1a1a), linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+
+        .vip-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(255, 216, 155, 0.2);
+        }
+
+        .vip-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            margin: 0 auto 2rem;
+            box-shadow: 0 15px 40px rgba(255, 216, 155, 0.3);
+        }
+
+        .vip-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .vip-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Personal Training Section */
+        .personal-training {
+            padding: 100px 0;
+            background: #111111;
+        }
+
+        .trainer-card {
+            background: #1a1a1a;
+            border-radius: 25px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 216, 155, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(255, 216, 155, 0.1);
+        }
+
+        .trainer-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+            font-weight: 700;
+        }
+
+        .trainer-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .trainer-specialty {
+            color: #ffd89b;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .trainer-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Schedule Section */
+        .schedule-section {
+            padding: 100px 0;
+            background: #0a0a0a;
+        }
+
+        .schedule-table {
+            background: #1a1a1a;
+            border-radius: 25px;
+            padding: 3rem;
+            border: 2px solid transparent;
+            background-image: linear-gradient(#1a1a1a, #1a1a1a), linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            overflow-x: auto;
+        }
+
+        .table {
+            color: #ffffff;
+            background: transparent;
+            margin: 0;
+        }
+
+        .table thead th {
+            border-top: none;
+            border-bottom: 2px solid rgba(255, 216, 155, 0.3);
+            color: #ffd89b;
+            font-weight: 700;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .table tbody td {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .schedule-slot {
+            background: linear-gradient(135deg, rgba(255, 216, 155, 0.2) 0%, rgba(25, 84, 123, 0.2) 100%);
+            border: 2px solid rgba(255, 216, 155, 0.4);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.9rem;
+            color: #ffd89b;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-slot.available {
+            cursor: pointer;
+        }
+
+        .schedule-slot.available:hover {
+            background: linear-gradient(135deg, rgba(255, 216, 155, 0.3) 0%, rgba(25, 84, 123, 0.3) 100%);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 216, 155, 0.2);
+        }
+
+        .schedule-slot.platinum {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            border-color: #ffd89b;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .class-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .schedule-table {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modern Navbar -->
+    <!-- Standard Logged-In Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="home-page.html">
+            <div class="brand-icon">
+                <i class="fas fa-dumbbell"></i>
+            </div>
+            FlexFusion Elite
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home-page.html">Memberships</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="classes.html">Classes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="membership-badge">
+                <i class="fas fa-gem"></i> Platinum Elite Member
+            </div>
+            <h1 class="hero-title">Platinum Exclusive</h1>
+            <p class="hero-subtitle">Ultimate luxury fitness experience with personal training, VIP amenities, and exclusive access to elite programs</p>
+        </div>
+    </section>
+
+    <!-- Exclusive Classes -->
+    <section class="classes-section">
+        <div class="container">
+            <h2 class="section-title">Platinum Exclusive Classes</h2>
+            <p class="section-subtitle">Access the most exclusive and advanced fitness programs available only to Platinum members</p>
+            
+            <div class="row">
+                <!-- Personal Training -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card platinum">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="class-difficulty">Elite</div>
+                        </div>
+                        <h3 class="class-title">1-on-1 Personal Training</h3>
+                        <p class="class-description">Exclusive one-on-one sessions with elite trainers, customized workout plans, and real-time form correction for optimal results.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">60 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-target"></i></div>
+                                <div class="detail-label">Focus</div>
+                                <div class="detail-value">Personalized</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-crown"></i></div>
+                                <div class="detail-label">Trainer</div>
+                                <div class="detail-value">Elite Level</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('1-on-1 Personal Training')">
+                            <i class="fas fa-gem"></i> Book Platinum Session
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Elite CrossFit -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card platinum">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="class-difficulty">Expert</div>
+                        </div>
+                        <h3 class="class-title">Elite CrossFit</h3>
+                        <p class="class-description">High-intensity CrossFit training with Olympic lifting, advanced movements, and competition-level coaching.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">75 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-fire"></i></div>
+                                <div class="detail-label">Calories</div>
+                                <div class="detail-value">600-800</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-users"></i></div>
+                                <div class="detail-label">Max Size</div>
+                                <div class="detail-value">6 people</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('Elite CrossFit')">
+                            <i class="fas fa-gem"></i> Book Platinum Session
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recovery & Wellness -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card platinum">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <div class="class-difficulty">Therapeutic</div>
+                        </div>
+                        <h3 class="class-title">Recovery & Wellness</h3>
+                        <p class="class-description">Comprehensive recovery sessions including massage therapy, cryotherapy, and advanced stretching techniques.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">90 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-heart"></i></div>
+                                <div class="detail-label">Benefits</div>
+                                <div class="detail-value">Recovery</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-leaf"></i></div>
+                                <div class="detail-label">Type</div>
+                                <div class="detail-value">Wellness</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('Recovery & Wellness')">
+                            <i class="fas fa-gem"></i> Book Platinum Session
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Athletic Performance -->
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card platinum">
+                        <div class="class-header">
+                            <div class="class-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="class-difficulty">Professional</div>
+                        </div>
+                        <h3 class="class-title">Athletic Performance</h3>
+                        <p class="class-description">Sport-specific training programs designed for athletes and performance enthusiasts with advanced metrics tracking.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                                <div class="detail-label">Duration</div>
+                                <div class="detail-value">90 min</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-chart-line"></i></div>
+                                <div class="detail-label">Tracking</div>
+                                <div class="detail-value">Advanced</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-trophy"></i></div>
+                                <div class="detail-label">Level</div>
+                                <div class="detail-value">Elite</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookClass('Athletic Performance')">
+                            <i class="fas fa-gem"></i> Book Platinum Session
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIP Amenities -->
+    <section class="vip-section">
+        <div class="container">
+            <h2 class="section-title">Platinum VIP Amenities</h2>
+            <p class="section-subtitle">Exclusive luxury amenities and services reserved for our most elite members</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="vip-card">
+                        <div class="vip-icon">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                        <h4 class="vip-title">Concierge Service</h4>
+                        <p class="vip-description">Personal concierge to handle bookings, meal prep coordination, and lifestyle management services.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="vip-card">
+                        <div class="vip-icon">
+                            <i class="fas fa-hot-tub"></i>
+                        </div>
+                        <h4 class="vip-title">VIP Locker Room</h4>
+                        <p class="vip-description">Exclusive access to luxury locker rooms with premium amenities, sauna, and relaxation areas.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="vip-card">
+                        <div class="vip-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h4 class="vip-title">Nutrition Chef</h4>
+                        <p class="vip-description">Personal nutrition chef for meal planning, prep services, and custom dietary consultations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Trainers -->
+    <section class="personal-training">
+        <div class="container">
+            <h2 class="section-title">Your Elite Training Team</h2>
+            <p class="section-subtitle">Meet our world-class trainers exclusively available to Platinum members</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="trainer-card">
+                        <div class="trainer-avatar">MJ</div>
+                        <h4 class="trainer-name">Mike Johnson</h4>
+                        <p class="trainer-specialty">Strength & Conditioning</p>
+                        <p class="trainer-description">Former Olympic trainer with 15+ years experience in elite athletic performance and strength development.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="trainer-card">
+                        <div class="trainer-avatar">SW</div>
+                        <h4 class="trainer-name">Sarah Williams</h4>
+                        <p class="trainer-specialty">Functional Movement</p>
+                        <p class="trainer-description">Movement specialist and rehabilitation expert focusing on injury prevention and optimal body mechanics.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="trainer-card">
+                        <div class="trainer-avatar">DR</div>
+                        <h4 class="trainer-name">David Rodriguez</h4>
+                        <p class="trainer-specialty">Performance Nutrition</p>
+                        <p class="trainer-description">Sports nutritionist and wellness coach specializing in elite athlete meal planning and supplementation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platinum Schedule -->
+    <section class="schedule-section">
+        <div class="container">
+            <h2 class="section-title">Platinum Exclusive Schedule</h2>
+            <p class="section-subtitle">Your private access to the most exclusive training sessions and amenities</p>
+            
+            <div class="schedule-table">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>5:30 AM</strong></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                                <td><div class="schedule-slot platinum available">Elite CrossFit</div></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                                <td><div class="schedule-slot platinum available">Athletic Performance</div></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                                <td><div class="schedule-slot platinum available">Recovery & Wellness</div></td>
+                            </tr>
+                            <tr>
+                                <td><strong>7:00 AM</strong></td>
+                                <td><div class="schedule-slot platinum available">Athletic Performance</div></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                                <td><div class="schedule-slot platinum available">Elite CrossFit</div></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                                <td><div class="schedule-slot platinum available">Athletic Performance</div></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                            </tr>
+                            <tr>
+                                <td><strong>11:00 AM</strong></td>
+                                <td><div class="schedule-slot platinum available">Recovery & Wellness</div></td>
+                                <td><div class="schedule-slot platinum available">Athletic Performance</div></td>
+                                <td><div class="schedule-slot platinum available">Recovery & Wellness</div></td>
+                                <td><div class="schedule-slot platinum available">Elite CrossFit</div></td>
+                                <td><div class="schedule-slot platinum available">Recovery & Wellness</div></td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4:00 PM</strong></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                                <td><div class="schedule-slot platinum available">Recovery & Wellness</div></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                                <td><div class="schedule-slot platinum available">Recovery & Wellness</div></td>
+                                <td><div class="schedule-slot platinum available">Elite CrossFit</div></td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6:00 PM</strong></td>
+                                <td><div class="schedule-slot platinum available">Elite CrossFit</div></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                                <td><div class="schedule-slot platinum available">Athletic Performance</div></td>
+                                <td><div class="schedule-slot platinum available">Personal Training</div></td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        // Clear all user data from storage
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('fullName');
+        localStorage.removeItem('email');
+        // Redirect to login page
+        window.location.href = 'login.html';
+    });
+        function bookClass(className) {
+            if (confirm(`Book ${className} platinum exclusive session?`)) {
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking Platinum Session...';
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-gem"></i> Platinum Booked!';
+                    btn.style.background = 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)';
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        btn.style.background = 'linear-gradient(135deg, #ffd89b 0%, #19547b 100%)';
+                    }, 2000);
+                }, 1500);
+                
+                const bookings = JSON.parse(localStorage.getItem('classBookings') || '[]');
+                bookings.push({
+                    className: className,
+                    date: new Date().toISOString(),
+                    status: 'booked',
+                    type: 'platinum'
+                });
+                localStorage.setItem('classBookings', JSON.stringify(bookings));
+            }
+        }
+
+        document.querySelectorAll('.schedule-slot.available').forEach(slot => {
+            slot.addEventListener('click', function() {
+                const className = this.textContent;
+                bookClass(className);
+            });
+        });
+
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.class-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200 + 300);
+            });
+        });
+    </script>
+</body>
+</html>

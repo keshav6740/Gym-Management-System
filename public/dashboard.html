@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - FlexFusion Elite</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-grad: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-grad: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            --warning-grad: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --card-hover: #222222;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.2);
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --text-light: rgba(255, 255, 255, 0.8);
+            --glass-bg: rgba(26, 26, 26, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--dark-bg);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(240, 147, 251, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(118, 75, 162, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        /* Premium Navbar */
+       .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px !important;
+            border-radius: 25px;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        /* Enhanced Hero Section */
+        .hero-section { 
+            background: var(--primary-grad);
+            padding: 100px 0 80px;
+            padding-top: 160px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .hero-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title { 
+            font-size: 3.5rem; 
+            font-weight: 900; 
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .lead { 
+            font-weight: 400; 
+            color: rgba(255,255,255,0.9);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        /* Main Content Layout */
+        .main-content { 
+            margin-top: 0; 
+            padding-top: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Enhanced Card Styles */
+        .card { 
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header { 
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 700;
+            padding: 1.5rem 1.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header i {
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .card-body { 
+            padding: 1.5rem;
+        }
+
+        /* Premium Quick Stats Cards */
+        .stat-card { 
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            height: 100%;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-grad);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .stat-card:hover { 
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 80px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .stat-card .stat-number { 
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card .stat-label { 
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Enhanced Activity Heatmap */
+        .heatmap-container { 
+            display: grid;
+            grid-template-rows: repeat(7, 1fr);
+            grid-auto-flow: column;
+            grid-auto-columns: 1fr;
+            gap: 4px;
+            padding: 1rem;
+            min-height: 140px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .heatmap-cell { 
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .heatmap-cell[data-level='1'] { 
+            background: linear-gradient(135deg, #535d9b 0%, #667eea 100%);
+            box-shadow: 0 2px 8px rgba(83, 93, 155, 0.3);
+        }
+
+        .heatmap-cell[data-level='2'] { 
+            background: linear-gradient(135deg, #667eea 0%, #8f9eff 100%);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        .heatmap-cell[data-level='3'] { 
+            background: linear-gradient(135deg, #8f9eff 0%, #a5b4fc 100%);
+            box-shadow: 0 2px 8px rgba(143, 158, 255, 0.5);
+        }
+
+        .heatmap-legend { 
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            gap: 8px;
+        }
+
+        .heatmap-legend .heatmap-cell { 
+            width: 12px;
+            height: 12px;
+            margin: 0 2px;
+        }
+
+        /* Enhanced List Group Items */
+        .list-group-item { 
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px !important;
+            padding: 1.2rem 1.5rem;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .list-group-item:hover { 
+            background: rgba(255,255,255,0.05);
+            transform: translateX(5px);
+            border-color: var(--border-hover);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .list-group-item h6 { 
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .list-group-item small { 
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .list-group-item small::before {
+            content: '📅';
+            font-size: 0.8rem;
+        }
+
+        .list-group-flush .list-group-item:last-child { 
+            border-bottom: 1px solid var(--border-color) !important;
+        }
+
+        /* Enhanced Cancel Button */
+        .btn-outline-danger { 
+            border: 2px solid #ef4444;
+            color: #ef4444;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .btn-outline-danger:hover { 
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Enhanced Discover List */
+        #discoverList .list-group-item {
+            border-left: 4px solid transparent;
+            background: linear-gradient(135deg, rgba(240,147,251,0.1) 0%, rgba(245,87,108,0.1) 100%);
+            border: 1px solid rgba(240,147,251,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #discoverList .list-group-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--secondary-grad);
+            transition: width 0.3s ease;
+        }
+
+        #discoverList .list-group-item:hover::before {
+            width: 8px;
+        }
+
+        #discoverList .list-group-item:hover {
+            background: linear-gradient(135deg, rgba(240,147,251,0.15) 0%, rgba(245,87,108,0.15) 100%);
+            border-color: rgba(240,147,251,0.4);
+        }
+
+        #discoverList .list-group-item .badge {
+            background: var(--secondary-grad);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(240,147,251,0.3);
+        }
+
+        #discoverList .list-group-item h6 { 
+            font-size: 1rem;
+            background: var(--secondary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #discoverList .list-group-item small { 
+            font-size: 0.8rem;
+            color: rgba(240,147,251,0.8);
+        }
+
+        #discoverList .list-group-item small::before {
+            content: '👨‍💼';
+        }
+
+        /* Enhanced Membership Info */
+        #membershipPlan { 
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        #membershipStatus { 
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        #membershipStatus::before {
+            content: '✨';
+            font-size: 1.2rem;
+        }
+
+        .btn-outline-light { 
+            border: 2px solid var(--border-color);
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-outline-light:hover { 
+            background: var(--primary-grad);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Loading States */
+        .loading-shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .stat-card:first-child {
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .stat-card:last-child {
+            animation: slideInRight 0.6s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .lead {
+                font-size: 1.1rem;
+            }
+            
+            .stat-card {
+                padding: 1.5rem 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .stat-card .stat-number {
+                font-size: 2.2rem;
+            }
+            
+            .card-header {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .heatmap-container {
+                min-height: 120px;
+                padding: 0.5rem;
+            }
+            
+            .list-group-item {
+                padding: 1rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .brand-icon {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-grad);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #8f9eff 0%, #a5b4fc 100%);
+        }
+
+        /* Success/Error States */
+        .alert {
+            border-radius: 15px;
+            border: none;
+            backdrop-filter: blur(20px);
+        }
+
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #86efac;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Premium Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="dashboard.html">
+                <div class="brand-icon"><i class="fas fa-dumbbell"></i></div>
+                FlexFusion Elite
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="classes.html">Book Classes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn" style="cursor: pointer;">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enhanced Hero Section -->
+    <header class="hero-section text-center text-white">
+        <div class="container">
+            <h1 id="welcomeMessage" class="hero-title">Welcome back!</h1>
+            <p class="lead" id="motivationQuote">Your journey to greatness continues today.</p>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Content -->
+    <main class="container main-content">
+        <div id="dashboard-container"> 
+            <div class="row">
+                <!-- Main Column -->
+                <div class="col-lg-8">
+                    <!-- Enhanced Activity Heatmap -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-fire-alt"></i>
+                            Your 90-Day Activity Journey
+                        </div>
+                        <div class="card-body">
+                            <div class="heatmap-container" id="heatmap">
+                                <div class="text-center text-muted p-3 loading-shimmer">Loading your activity data...</div>
+                            </div>
+                            <div class="heatmap-legend">
+                                <span>Less</span>
+                                <div class="heatmap-cell" style="background-color: rgba(255, 255, 255, 0.08);"></div>
+                                <div class="heatmap-cell" data-level="1"></div>
+                                <div class="heatmap-cell" data-level="2"></div>
+                                <div class="heatmap-cell" data-level="3"></div>
+                                <span>More</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Upcoming Classes -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-calendar-check"></i>
+                            Your Upcoming Classes
+                        </div>
+                        <div class="card-body">
+                            <div id="bookingsList" class="list-group list-group-flush">
+                                <div class="text-center text-muted p-3 loading-shimmer">Loading your bookings...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Sidebar Column -->
+                <div class="col-lg-4">
+                    <!-- Premium Quick Stats -->
+                    <div class="row no-gutters mb-4">
+                        <div class="col-6 pr-2">
+                            <div class="stat-card">
+                                <div class="stat-number" id="classesAttended">0</div>
+                                <div class="stat-label">Classes Booked</div>
+                            </div>
+                        </div>
+                        <div class="col-6 pl-2">
+                            <div class="stat-card">
+                                <div class="stat-number" id="streak">0</div>
+                                <div class="stat-label">Day Streak</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Discover New Classes -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-search-plus"></i>
+                            Discover New Classes
+                        </div>
+                        <div class="list-group list-group-flush" id="discoverList">
+                            <div class="text-center text-muted p-3 loading-shimmer">Loading recommendations...</div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Membership Info -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-crown"></i>
+                            My Membership
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title" id="membershipPlan">Loading...</h5>
+                            <p class="card-text" id="membershipStatus">Status: Loading...</p>
+                            <a href="profile.html" class="btn btn-outline-light btn-sm">
+                                <i class="fas fa-user-cog mr-2"></i>
+                                Manage Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            if (!token) { window.location.href = 'login.html'; return; }
+
+            document.getElementById('logoutBtn').addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                localStorage.clear(); 
+                window.location.href = 'index.html'; 
+            });
+
+            const initDashboard = async () => {
+                try {
+                    const [profileRes, bookingsRes] = await Promise.all([
+                        fetch('/api/user/profile', { headers: { 'Authorization': `Bearer ${token}` } }),
+                        fetch('/api/user/bookings', { headers: { 'Authorization': `Bearer ${token}` } })
+                    ]);
+
+                    if (!profileRes.ok) throw new Error('Could not load your profile data.');
+                    if (!bookingsRes.ok) throw new Error('Could not load your class bookings.');
+
+                    const profileResponse = await profileRes.json();
+                    const bookings = await bookingsRes.json();
+
+                    const { profile, activity } = profileResponse;
+                    
+                    document.getElementById('welcomeMessage').textContent = `Welcome back, ${profile.fullName.split(' ')[0]}!`;
+                    document.getElementById('membershipPlan').textContent = `${profile.membership.plan || 'No'} Plan`;
+                    document.getElementById('membershipStatus').textContent = `Status: ${profile.membership.paymentStatus || 'N/A'}`;
+                    
+                    renderBookings(bookings);
+                    document.getElementById('classesAttended').textContent = bookings.length;
+                    generateHeatmap(activity);
+                    renderDiscover(bookings);
+
+                } catch (error) {
+                    console.error('Failed to initialize dashboard:', error);
+                    const container = document.getElementById('dashboard-container');
+                    container.innerHTML = `<div class="col-12"><div class="alert alert-danger"><i class="fas fa-exclamation-triangle mr-2"></i>Error: ${error.message} Please try logging in again.</div></div>`;
+                }
+            };
+
+            const renderBookings = (bookings) => {
+                const list = document.getElementById('bookingsList');
+                if (bookings.length === 0) { 
+                    list.innerHTML = '<div class="text-center py-4"><i class="fas fa-calendar-times fa-3x mb-3" style="color: var(--text-muted);"></i><p class="text-muted">You have no upcoming classes.</p><a href="classes.html" class="btn btn-outline-light btn-sm"><i class="fas fa-plus mr-2"></i>Book one now!</a></div>'; 
+                    return; 
+                }
+                list.innerHTML = bookings.map(b => `
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">${b.className}</h6>
+                            <small class="text-muted">${b.classSchedule}</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger cancel-btn" data-booking-id="${b._id}">
+                            <i class="fas fa-times mr-1"></i>Cancel
+                        </button>
+                    </div>`).join('');
+            };
+
+            const renderDiscover = async (userBookings) => {
+                const discoverList = document.getElementById('discoverList');
+                try {
+                    const all_classes = await fetch('/api/public/classes').then(res => res.json());
+                    const booked_ids = new Set(userBookings.map(b => b.classId.toString()));
+                    const recommendations = all_classes.filter(c => !booked_ids.has(c._id)).slice(0, 3);
+                    
+                    if (recommendations.length === 0) {
+                         discoverList.innerHTML = `<a href="classes.html" class="list-group-item list-group-item-action text-center py-4"><i class="fas fa-trophy fa-2x mb-2" style="color: #fbbf24;"></i><h6>You've tried everything!</h6><small>Great job exploring all our classes!</small></a>`;
+                    } else {
+                         discoverList.innerHTML = recommendations.map(c => `
+                            <a href="classes.html" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="mb-1">${c.name}</h6>
+                                        <small class="text-muted">${c.trainer}</small>
+                                    </div>
+                                    <span class="badge">${c.difficulty}</span>
+                                </div>
+                            </a>`).join('');
+                    }
+                } catch (e) {
+                    discoverList.innerHTML = `<div class="text-center p-3"><i class="fas fa-exclamation-circle text-danger mb-2"></i><p class="text-danger small mb-0">Could not load recommendations.</p></div>`;
+                }
+            };
+            
+            const generateHeatmap = (activity_dates) => {
+    const heatmap = document.getElementById('heatmap');
+    heatmap.innerHTML = ''; // Clear previous content
+
+    // Map activity_dates to a Set for quick lookup and a Map for counts
+    const activityCounts = new Map();
+    activity_dates.forEach(dateStr => {
+        activityCounts.set(dateStr, (activityCounts.get(dateStr) || 0) + 1);
+    });
+
+    // Calculate streak (this function is external and doesn't need changes)
+    document.getElementById('streak').textContent = calculateStreak(activity_dates);
+
+    // Determine the 90-day range
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize to start of day
+    
+    const ninetyDaysAgo = new Date(today);
+    ninetyDaysAgo.setDate(today.getDate() - 89); // Go back 89 days from today (making it 90 days total including today)
+
+    // Fill the grid for the last 90 days
+    for (let i = 0; i < 90; i++) {
+        const d = new Date(ninetyDaysAgo);
+        d.setDate(ninetyDaysAgo.getDate() + i); // Get current day in the 90-day range
+        
+        const cell = document.createElement('div');
+        cell.className = 'heatmap-cell';
+        
+        const dateString = d.toISOString().split('T')[0]; // YYYY-MM-DD
+        const count = activityCounts.get(dateString) || 0;
+        
+        // Set data-level for styling based on activity count
+        if (count > 0) {
+            cell.dataset.level = Math.min(count, 3); // Cap levels at 3 for visual distinction
+        }
+        
+        cell.title = `${dateString}: ${count} workout(s)`; // Tooltip for each cell
+        
+        heatmap.appendChild(cell);
+    }
+};
+            
+            const calculateStreak = (dates) => {
+                if (dates.length === 0) return 0;
+                const uniqueDates = [...new Set(dates)].sort((a,b) => new Date(b) - new Date(a));
+                let streak = 0;
+                const today = new Date();
+                const todayStr = today.toISOString().split('T')[0];
+                const yesterday = new Date(today);
+                yesterday.setDate(today.getDate() - 1);
+                const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+                if (uniqueDates[0] !== todayStr && uniqueDates[0] !== yesterdayStr) return 0;
+                
+                streak = 1;
+                if (uniqueDates.length === 1) return streak;
+
+                for (let i = 0; i < uniqueDates.length - 1; i++) {
+                    const current = new Date(uniqueDates[i]);
+                    const next = new Date(uniqueDates[i + 1]);
+                    const diff = (current.getTime() - next.getTime()) / (1000 * 60 * 60 * 24);
+                    if (diff === 1) {
+                        streak++;
+                    } else {
+                        break;
+                    }
+                }
+                return streak;
+            };
+
+            // Event listener for cancelling bookings
+            document.getElementById('bookingsList').addEventListener('click', (e) => {
+                if (e.target.classList.contains('cancel-btn') || e.target.closest('.cancel-btn')) {
+                    const btn = e.target.classList.contains('cancel-btn') ? e.target : e.target.closest('.cancel-btn');
+                    const bookingId = btn.dataset.bookingId;
+                    if (!confirm('Are you sure you want to cancel this booking?')) return;
+
+                    btn.disabled = true;
+                    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Cancelling...`;
+
+                    fetch(`/api/user/bookings/${bookingId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } })
+                        .then(res => res.json().then(data => ({ ok: res.ok, data })))
+                        .then(response => {
+                            if (!response.ok) throw new Error(response.data.msg);
+
+                            // Show success message
+                            const successAlert = document.createElement('div');
+                            successAlert.className = 'alert alert-success';
+                            successAlert.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Booking cancelled successfully!';
+                            document.querySelector('.main-content').insertBefore(successAlert, document.querySelector('.main-content').firstChild);
+                            
+                            setTimeout(() => successAlert.remove(), 3000);
+
+                            renderBookings(response.data);
+                            document.getElementById('classesAttended').textContent = response.data.length;
+                        })
+                        .catch(err => {
+                            alert('Failed to cancel booking: ' + err.message);
+                            btn.disabled = false; 
+                            btn.innerHTML = '<i class="fas fa-times mr-1"></i>Cancel';
+                        });
+                }
+            });
+
+            initDashboard();
+        });
+    </script>
+</body>
+</html>

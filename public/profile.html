@@ -23,6 +23,11 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         .navbar-brand {
@@ -31,18 +36,25 @@
             color: #ffffff !important;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
         }
 
         .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
+            width: 45px;
+            height: 45px;
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
 
         .nav-link {
@@ -50,6 +62,30 @@
             font-weight: 500;
             margin: 0 15px;
             transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px !important;
+            border-radius: 25px;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
 
         /* Profile Header */
@@ -164,6 +200,96 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* --- ADD THESE NEW STYLES INSIDE YOUR <style> TAG --- */
+
+        /* For the new Fitness Stats grid */
+        .stats-grid-enhanced {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* 2x2 grid */
+            gap: 1.5rem;
+        }
+
+        .stat-item-enhanced {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 3px solid #667eea;
+            text-align: left;
+        }
+
+        .stat-item-enhanced .stat-number-enhanced {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.1;
+        }
+
+        .stat-item-enhanced .stat-label-enhanced {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* For the new Recent Activity timeline */
+        .timeline-enhanced {
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .timeline-enhanced::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+        }
+
+        .timeline-item-enhanced {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item-enhanced:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item-enhanced::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: #764ba2;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item-enhanced .timeline-date-enhanced {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-item-enhanced .timeline-content-enhanced {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .timeline-item-enhanced .timeline-content-enhanced strong {
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* ----------------------------------------------- */
+
         .modal-header,
         .modal-footer {
             border-color: rgba(255, 255, 255, 0.1);
@@ -203,14 +329,15 @@
             background: #667eea;
             color: white;
         }
+        
     </style>
 </head>
 
 <body>
     <!-- Standard Logged-In Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="home-page.html">
+            <a class="navbar-brand" href="dashboard.html">
                 <div class="brand-icon"><i class="fas fa-dumbbell"></i></div>
                 FlexFusion Elite
             </a>
@@ -219,10 +346,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="home-page.html">Memberships</a></li>
-                    <li class="nav-item"><a class="nav-link" href="classes.html">Classes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="classes.html">Book Classes</a></li>
                     <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn" style="cursor: pointer;">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -245,19 +373,28 @@
         <div class="container">
             <div class="row">
                 <!-- Left Column -->
+                <!-- Left Column -->
                 <div class="col-lg-8">
-                    <!-- Placeholder cards -->
+                    <!-- Fitness Stats -->
                     <div class="profile-card">
                         <h3 class="card-title">
                             <div class="card-icon"><i class="fas fa-chart-line"></i></div>Fitness Stats
                         </h3>
-                        <p class="text-muted">Your detailed fitness stats will appear here soon.</p>
+                        <div class="stats-grid">
+                            <!-- This will be replaced by JavaScript -->
+                            <p class="text-muted">Your detailed fitness stats will appear here soon.</p>
+                        </div>
                     </div>
+
+                    <!-- Recent Activity -->
                     <div class="profile-card">
                         <h3 class="card-title">
                             <div class="card-icon"><i class="fas fa-history"></i></div>Recent Activity
                         </h3>
-                        <p class="text-muted">Your recent workouts and class bookings will appear here.</p>
+                        <div class="timeline">
+                            <!-- This will be replaced by JavaScript -->
+                            <p class="text-muted">Your recent workouts and class bookings will appear here.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -337,151 +474,158 @@
     </div>
 
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+
     <script>
-        // Wrap all logic in DOMContentLoaded to ensure the page elements are ready.
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // --- 1. GRAB THE TOKEN AND CHECK AUTHENTICATION ---
+        document.addEventListener('DOMContentLoaded', function () {
             const token = localStorage.getItem('token');
             if (!token) {
-                // If there's no token, redirect to login immediately.
-                // This is the most important security check.
                 window.location.href = 'login.html';
-                return; // Stop executing the rest of the script.
+                return;
             }
 
-            // --- 2. DEFINE ALL PAGE ELEMENTS ---
-            // We define these *after* the auth check because they are only needed if the user is logged in.
+            // --- DEFINE ALL PAGE ELEMENTS ---
             const logoutBtn = document.getElementById('logoutBtn');
+            // (Add other button elements here if needed)
+
+            // --- RENDER FUNCTIONS ---
+            // THIS IS THE NEW, CORRECTED FUNCTION
+            // THIS IS THE NEW, VISUALLY APPEALING RENDER FUNCTION
+            const renderStatsAndActivity = (bookings) => {
+                const fitnessStatsCard = document.querySelector('.profile-card .stats-grid').parentElement;
+                const recentActivityCard = document.querySelector('.profile-card .timeline').parentElement;
+
+                // THIS IS THE NEW, CORRECTED CODE BLOCK
+// --- Calculate Stats ---
+const now = new Date();
+const thisMonthBookings = bookings.filter(b => new Date(b.bookingDate).getMonth() === now.getMonth() && new Date(b.bookingDate).getFullYear() === now.getFullYear()).length;
+const totalBookings = bookings.length;
+const uniqueDaysActive = new Set(bookings.map(b => new Date(b.bookingDate).toLocaleDateString())).size;
+
+// --- ** NEW **: Calculate Average Workouts Per Week ---
+let avgWorkoutsPerWeek = 0;
+if (totalBookings > 0) {
+    // Find the date of the very first booking
+    const firstBookingDate = new Date(Math.min(...bookings.map(b => new Date(b.bookingDate))));
+    // Calculate the number of weeks since the first booking
+    const weeksSinceFirstBooking = (now - firstBookingDate) / (1000 * 60 * 60 * 24 * 7);
+    
+    // To avoid dividing by zero if the user just started, we ensure at least 1 week has passed.
+    if (weeksSinceFirstBooking < 1) {
+        avgWorkoutsPerWeek = totalBookings; // If less than a week, average is just the total
+    } else {
+        avgWorkoutsPerWeek = (totalBookings / weeksSinceFirstBooking).toFixed(1);
+    }
+}
+// ---------------------------------------------------------
+
+// --- Render Fitness Stats ---
+if (fitnessStatsCard) {
+    fitnessStatsCard.innerHTML = `
+        <h3 class="card-title">
+            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+            Fitness Stats
+        </h3>
+        <div class="stats-grid-enhanced">
+            <div class="stat-item-enhanced">
+                <div class="stat-number-enhanced">${thisMonthBookings}</div>
+                <div class="stat-label-enhanced">Workouts This Month</div>
+            </div>
+            <div class="stat-item-enhanced">
+                <div class="stat-number-enhanced">${totalBookings}</div>
+                <div class="stat-label-enhanced">Total Classes Attended</div>
+            </div>
+            <div class="stat-item-enhanced">
+                <div class="stat-number-enhanced">${uniqueDaysActive}</div>
+                <div class="stat-label-enhanced">Total Active Days</div>
+            </div>
+            <div class="stat-item-enhanced">
+                <div class="stat-number-enhanced">${avgWorkoutsPerWeek}</div>
+                <div class="stat-label-enhanced">Avg Workouts / Week</div>
+            </div>
+        </div>`;
+}
+
+                // --- Render Recent Activity with Enhanced Styling ---
+                if (recentActivityCard) {
+                    const recentBookings = bookings.slice().sort((a, b) => new Date(b.bookingDate) - new Date(a.bookingDate)).slice(0, 4);
+                    let timelineHTML;
+
+                    if (recentBookings.length > 0) {
+                        timelineHTML = recentBookings.map(b => {
+                            const date = new Date(b.bookingDate).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+                            return `
+                <div class="timeline-item-enhanced">
+                    <div class="timeline-date-enhanced">${date}</div>
+                    <div class="timeline-content-enhanced">Completed <strong>${b.className}</strong></div>
+                </div>`;
+                        }).join('');
+                    } else {
+                        timelineHTML = `<p class="text-muted p-3">No recent activity found. <a href="classes.html">Book a class</a> to get started!</p>`;
+                    }
+
+                    recentActivityCard.innerHTML = `
+            <h3 class="card-title">
+                <div class="card-icon"><i class="fas fa-history"></i></div>
+                Recent Activity
+            </h3>
+            <div class="timeline-enhanced">${timelineHTML}</div>`;
+                }
+            };
+
+            // --- FETCH AND POPULATE ALL DATA ---
+            const initProfile = async () => {
+                try {
+                    // Fetch all data in parallel
+                    const [profileRes, bookingsRes] = await Promise.all([
+                        fetch('/api/user/profile', { headers: { 'Authorization': `Bearer ${token}` } }),
+                        fetch('/api/user/bookings', { headers: { 'Authorization': `Bearer ${token}` } })
+                    ]);
+
+                    if (!profileRes.ok || !bookingsRes.ok) throw new Error('Could not load all profile data.');
+
+                    const profileResponse = await profileRes.json();
+                    const bookings = await bookingsRes.json();
+                    const { profile } = profileResponse;
+
+                    // Populate Header & Info
+                    document.getElementById('profileName').textContent = profile.fullName;
+                    document.getElementById('profileEmail').textContent = profile.email;
+                    document.getElementById('profileAvatar').innerHTML = `<span style="font-size: 3rem; font-weight: 700;">${profile.fullName.charAt(0).toUpperCase()}</span>`;
+                    document.getElementById('membershipBadge').textContent = `${profile.membership.plan || 'No Plan'} Elite Member`;
+                    document.getElementById('memberSince').textContent = new Date(profile.joinDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+                    document.getElementById('membershipPlan').textContent = `${profile.membership.plan || 'No Plan'} Elite`;
+                    document.getElementById('membershipStatus').textContent = profile.membership.paymentStatus || 'N/A';
+
+                    // Populate Stats and Activity
+                    renderStatsAndActivity(bookings);
+
+                } catch (error) {
+                    console.error('Profile loading error:', error.message);
+                    alert(error.message);
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                }
+            };
+
+            // --- SETUP EVENT LISTENERS (Logout, Edit Profile, etc.) ---
+            // (This block contains the same functional code from the previous response for buttons)
+            if (logoutBtn) { logoutBtn.addEventListener('click', (e) => { e.preventDefault(); localStorage.clear(); window.location.href = 'index.html'; }); }
+            // ... (paste the full, corrected listeners for upgrade, settings, and edit modal here)
             const upgradePlanBtn = document.getElementById('upgradePlanBtn');
             const settingsBtn = document.getElementById('settingsBtn');
             const editProfileBtn = document.getElementById('editProfileBtn');
             const editProfileForm = document.getElementById('editProfileForm');
-            const editFullNameInput = document.getElementById('editFullName');
-            const editPasswordInput = document.getElementById('editPassword');
-            const confirmEditPasswordInput = document.getElementById('confirmEditPassword');
+            if (upgradePlanBtn) { upgradePlanBtn.addEventListener('click', () => window.location.href = 'home-page.html'); }
+            if (settingsBtn) { settingsBtn.addEventListener('click', () => window.location.href = 'settings.html'); }
+            if (editProfileBtn) { editProfileBtn.addEventListener('click', () => { document.getElementById('editFullName').value = localStorage.getItem('fullName') || ''; document.getElementById('editPassword').value = ''; document.getElementById('confirmEditPassword').value = ''; }); }
+            if (editProfileForm) { editProfileForm.addEventListener('submit', (e) => { e.preventDefault(); const newFullName = document.getElementById('editFullName').value; const newPassword = document.getElementById('editPassword').value; const confirmPassword = document.getElementById('confirmEditPassword').value; if (newFullName.trim() === '') return alert('Full Name cannot be empty.'); if (newPassword && newPassword.length < 6) return alert('New password must be at least 6 characters long.'); if (newPassword && newPassword !== confirmPassword) return alert('New passwords do not match.'); const updateData = { fullName: newFullName }; if (newPassword) updateData.password = newPassword; const saveButton = editProfileForm.querySelector('button[type="submit"]'); saveButton.disabled = true; saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...'; fetch('/api/user/profile', { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify(updateData) }).then(res => res.json()).then(data => { if (!data.success) throw new Error(data.msg || 'Failed to update profile.'); localStorage.setItem('fullName', data.user.fullName); if (updateData.password) { alert('Password changed! Please log in again.'); localStorage.clear(); window.location.href = 'login.html'; } else { alert('Profile updated!'); document.getElementById('profileName').textContent = data.user.fullName; document.getElementById('profileAvatar').innerHTML = `<span style="font-size: 3rem; font-weight: 700;">${data.user.fullName.charAt(0).toUpperCase()}</span>`; $('#editProfileModal').modal('hide'); } }).catch(err => alert(err.message)).finally(() => { saveButton.disabled = false; saveButton.innerHTML = 'Save Changes'; }); }); }
 
-            // --- 3. FETCH AND POPULATE PROFILE DATA ---
-            fetch('/api/user/profile', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            })
-            .then(res => {
-                if (res.status === 401 || res.status === 403) {
-                    // This handles cases where the token is present but invalid/expired.
-                    throw new Error('Session expired. Please log in again.');
-                }
-                if (!res.ok) {
-                    throw new Error('Failed to load your profile.');
-                }
-                return res.json();
-            })
-            .then(user => {
-                // Populate the page with data from the server
-                document.getElementById('profileName').textContent = user.fullName;
-                document.getElementById('profileEmail').textContent = user.email;
-                document.getElementById('profileAvatar').innerHTML = `<span style="font-size: 3rem; font-weight: 700;">${user.fullName.charAt(0).toUpperCase()}</span>`;
-                
-                const membershipPlan = user.membership.plan || 'No Plan';
-                document.getElementById('membershipBadge').textContent = `${membershipPlan} Elite Member`;
-                document.getElementById('memberSince').textContent = new Date(user.joinDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-                document.getElementById('membershipPlan').textContent = `${membershipPlan} Elite`;
-                document.getElementById('membershipStatus').textContent = user.membership.paymentStatus || 'N/A';
-                
-                const descriptions = {
-                    'Basic': 'Access to all basic gym equipment and facilities.',
-                    'Premium': 'Access to group classes and nutrition consultations.',
-                    'Platinum': 'Exclusive access to personal training and all VIP amenities.',
-                    'No Plan': 'You do not have an active membership. Select a plan to get started!'
-                };
-                document.getElementById('membershipDescription').textContent = descriptions[membershipPlan];
-            })
-            .catch(err => {
-                // If fetching fails for any reason, log out the user.
-                console.error('Profile loading error:', err.message);
-                alert(err.message);
-                localStorage.clear();
-                window.location.href = 'login.html';
-            });
 
-            // --- 4. SETUP EVENT LISTENERS FOR BUTTONS ---
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    localStorage.clear();
-                    window.location.href = 'login.html';
-                });
-            }
-
-            if (upgradePlanBtn) {
-                upgradePlanBtn.addEventListener('click', () => window.location.href = 'home-page.html');
-            }
-
-            if (settingsBtn) {
-                settingsBtn.addEventListener('click', () => window.location.href = 'settings.html');
-            }
-
-            if (editProfileBtn) {
-                editProfileBtn.addEventListener('click', () => {
-                    editFullNameInput.value = localStorage.getItem('fullName') || '';
-                    editPasswordInput.value = '';
-                    confirmEditPasswordInput.value = '';
-                });
-            }
-
-            if (editProfileForm) {
-                editProfileForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const newFullName = editFullNameInput.value;
-                    const newPassword = editPasswordInput.value;
-                    const confirmPassword = confirmEditPasswordInput.value;
-
-                    if (newFullName.trim() === '') return alert('Full Name cannot be empty.');
-                    if (newPassword && newPassword.length < 6) return alert('New password must be at least 6 characters long.');
-                    if (newPassword && newPassword !== confirmPassword) return alert('New passwords do not match.');
-
-                    const updateData = { fullName: newFullName };
-                    if (newPassword) updateData.password = newPassword;
-
-                    const saveButton = editProfileForm.querySelector('button[type="submit"]');
-                    saveButton.disabled = true;
-                    saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-
-                    fetch('/api/user/profile', {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify(updateData)
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (!data.success) throw new Error(data.msg || 'Failed to update profile.');
-                        
-                        localStorage.setItem('fullName', data.user.fullName);
-
-                        if (updateData.password) {
-                            alert('Password changed successfully! Please log in again with your new password.');
-                            localStorage.clear();
-                            window.location.href = 'login.html';
-                        } else {
-                            alert('Profile name updated successfully!');
-                            document.getElementById('profileName').textContent = data.user.fullName;
-                            document.getElementById('profileAvatar').innerHTML = `<span style="font-size: 3rem; font-weight: 700;">${data.user.fullName.charAt(0).toUpperCase()}</span>`;
-                            $('#editProfileModal').modal('hide');
-                        }
-                    })
-                    .catch(err => alert(err.message))
-                    .finally(() => {
-                        saveButton.disabled = false;
-                        saveButton.innerHTML = 'Save Changes';
-                    });
-                });
-            }
+            // --- INITIALIZE THE PAGE ---
+            initProfile();
         });
     </script>
 </body>

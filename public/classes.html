@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classes - FlexFusion Elite</title>
+    <title>Your Classes - FlexFusion Elite</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* [ YOUR EXISTING CSS STYLES GO HERE - NO CHANGES NEEDED ] */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Define color variables for dynamic styling */
+        :root {
+            --tier-basic-primary: #667eea; /* Blue */
+            --tier-premium-primary: #f093fb; /* Pink */
+            --tier-platinum-primary: #ffd89b; /* Gold */
+            --tier-basic-gradient: linear-gradient(135deg, var(--tier-basic-primary) 0%, #764ba2 100%);
+            --tier-premium-gradient: linear-gradient(135deg, var(--tier-premium-primary) 0%, #f5576c 100%);
+            --tier-platinum-gradient: linear-gradient(135deg, var(--tier-platinum-primary) 0%, #19547b 100%);
+            --card-bg: #1a1a1a;
+            --dark-bg: #0a0a0a;
+            --border-color: rgba(255, 255, 255, 0.1);
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            line-height: 1.6;
-        }
+        body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: #ffffff; }
 
-        /* Modern Navbar */
-        .navbar {
+         .navbar {
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         .navbar-brand {
@@ -36,18 +41,25 @@
             color: #ffffff !important;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
         }
 
         .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
+            width: 45px;
+            height: 45px;
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
 
         .nav-link {
@@ -55,539 +67,81 @@
             font-weight: 500;
             margin: 0 15px;
             transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px !important;
+            border-radius: 25px;
         }
 
         .nav-link:hover {
-            color: #667eea !important;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            padding: 120px 0 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-            opacity: 0.3;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: white;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Filter Section */
-        .filter-section {
-            padding: 60px 0 40px;
-            background: #0a0a0a;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .filter-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-tab {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .filter-tab:hover {
+            color: #ffffff !important;
             background: rgba(102, 126, 234, 0.1);
-            border-color: rgba(102, 126, 234, 0.3);
-            color: #667eea;
+            transform: translateY(-2px);
+        }
+        .nav-link:hover::after {
+            width: 80%;
         }
 
-        .filter-tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: #667eea;
-            color: white;
-        }
-
-        .filter-tab.premium.active {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-color: #f093fb;
-        }
-
-        .filter-tab.platinum.active {
-            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-            border-color: #ffd89b;
-        }
-
-        /* Classes Grid */
-        .classes-section {
-            padding: 60px 0 100px;
-            background: #0a0a0a;
-        }
-
-        .class-card {
-            background: #1a1a1a;
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .class-card::before {
+        .nav-link::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .class-card:hover::before {
-            opacity: 1;
-        }
-
-        .class-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
-            border-color: rgba(102, 126, 234, 0.3);
-        }
-
-        .class-card.premium:hover {
-            box-shadow: 0 20px 60px rgba(240, 147, 251, 0.2);
-            border-color: rgba(240, 147, 251, 0.3);
-        }
-
-        .class-card.platinum:hover {
-            box-shadow: 0 20px 60px rgba(255, 216, 155, 0.2);
-            border-color: rgba(255, 216, 155, 0.3);
-        }
-
-        .class-tier-badge {
-            position: absolute;
-            top: -8px;
-            right: 20px;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            z-index: 2;
-        }
-
-        .class-tier-badge.basic {
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .class-tier-badge.premium {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-        }
-
-        .class-tier-badge.platinum {
-            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-            color: white;
-        }
-
-        .class-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .class-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .class-icon.basic {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .class-icon.premium {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .class-icon.platinum {
-            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-        }
-
-        .class-difficulty {
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .class-difficulty.basic {
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
-        }
-
-        .class-difficulty.premium {
-            background: rgba(240, 147, 251, 0.2);
-            color: #f093fb;
-        }
-
-        .class-difficulty.platinum {
-            background: rgba(255, 216, 155, 0.2);
-            color: #ffd89b;
-        }
-
-        .class-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-            position: relative;
-            z-index: 2;
-        }
-
-        .class-description {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            position: relative;
-            z-index: 2;
-        }
-
-        .class-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .detail-item {
-            text-align: center;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-
-        .detail-icon {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .detail-icon.basic {
-            color: #667eea;
-        }
-
-        .detail-icon.premium {
-            color: #f093fb;
-        }
-
-        .detail-icon.platinum {
-            color: #ffd89b;
-        }
-
-        .detail-label {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.8rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .detail-value {
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .class-actions {
-            display: flex;
-            gap: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .btn-book {
-            flex: 1;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 15px;
-            font-weight: 600;
-            font-size: 1rem;
             transition: all 0.3s ease;
-            color: white;
+            transform: translateX(-50%);
         }
 
-        .btn-book.basic {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
+        .hero-section { padding: 120px 0 80px; text-align: center; }
+        .hero-title { font-size: 3.5rem; font-weight: 800; color: white; }
+        .hero-subtitle { font-size: 1.3rem; color: rgba(255, 255, 255, 0.9); max-width: 600px; margin: auto; }
+        .membership-badge { background: rgba(255,255,255,0.2); border-radius: 25px; padding: 12px 24px; font-weight: 600; margin-bottom: 2rem; display: inline-block; }
 
-        .btn-book.premium {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
+        /* Dynamic Class Card Styles */
+        .classes-section { padding: 80px 0; background: var(--dark-bg); }
+        .class-card { background: var(--card-bg); border-radius: 20px; padding: 2rem; border: 1px solid var(--border-color); height: 100%; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .class-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
 
-        .btn-book.platinum {
-            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-        }
+        /* Specific styles based on the tier-class added by JS */
+        .class-card.basic-tier .class-icon, .class-card.basic-tier .btn-book { background: var(--tier-basic-gradient); }
+        .class-card.basic-tier .class-difficulty { background: rgba(102,126,234,0.2); color: var(--tier-basic-primary); }
 
-        .btn-book:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
+        .class-card.premium-tier .class-icon, .class-card.premium-tier .btn-book { background: var(--tier-premium-gradient); }
+        .class-card.premium-tier .class-difficulty { background: rgba(240,147,251,0.2); color: var(--tier-premium-primary); }
+        .class-card.premium-tier .class-details .detail-icon { color: var(--tier-premium-primary); }
 
-        .btn-info {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.8);
-            padding: 12px 20px;
-            border-radius: 15px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
+        .class-card.platinum-tier .class-icon, .class-card.platinum-tier .btn-book { background: var(--tier-platinum-gradient); }
+        .class-card.platinum-tier .class-difficulty { background: rgba(255,216,155,0.2); color: var(--tier-platinum-primary); }
+        .class-card.platinum-tier .class-details .detail-icon { color: var(--tier-platinum-primary); }
 
-        .btn-info:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-        }
-
-        /* Schedule Overview */
-        .schedule-overview {
-            padding: 80px 0;
-            background: #111111;
-        }
-
-        .schedule-card {
-            background: #1a1a1a;
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-
-        .schedule-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #ffffff;
-        }
-
-        .schedule-subtitle {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 2rem;
-        }
-
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .schedule-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .schedule-time {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 0.5rem;
-        }
-
-        .schedule-class {
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
-        }
-
-        /* Membership CTA */
-        .membership-cta {
-            padding: 80px 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            text-align: center;
-        }
-
-        .cta-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #ffffff;
-        }
-
-        .cta-subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-cta {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 15px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
-            color: white;
-            text-decoration: none;
-        }
-
-        .btn-cta-outline {
-            background: transparent;
-            border: 2px solid #667eea;
-            color: #667eea;
-        }
-
-        .btn-cta-outline:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .filter-tabs {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding-bottom: 10px;
-            }
-            
-            .class-details {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .class-actions {
-                flex-direction: column;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        /* Hidden class for filtering */
-        .hidden {
-            display: none !important;
-        }
+        .class-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+        .class-icon { width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; }
+        .class-difficulty { padding: 6px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; }
+        .class-title { font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem; }
+        .class-description { color: rgba(255, 255, 255, 0.7); line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1; }
+        .class-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .detail-item { text-align: center; padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        .detail-icon { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--tier-basic-primary); /* Default icon color */ }
+        .detail-label { color: rgba(255, 255, 255, 0.6); font-size: 0.8rem; }
+        .detail-value { color: #ffffff; font-weight: 600; font-size: 0.9rem; }
+        .btn-book { flex-shrink: 0; border: none; padding: 12px 20px; border-radius: 15px; font-weight: 600; font-size: 1rem; color: white; transition: all 0.3s ease; }
+        .btn-book:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .btn-book:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-login-prompt { background: transparent; border: 2px solid var(--tier-basic-primary); color: var(--tier-basic-primary); }
+        .btn-login-prompt:hover { background: var(--tier-basic-primary); color: white; }
     </style>
 </head>
 <body>
     <!-- Navbar Container -->
-    <div id="navbar-container">
-        <!-- The navbar will be dynamically inserted here -->
-    </div>
+    <div id="navbar-container"></div>
 
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" id="hero-section-dynamic">
         <div class="container">
-            <h1 class="hero-title">Fitness Classes</h1>
-            <p class="hero-subtitle">Discover our comprehensive range of fitness classes designed for every level and membership tier</p>
-        </div>
-    </section>
-
-    <!-- [ The rest of your HTML content for the page body remains the same ] -->
-    <!-- Filter Section -->
-    <section class="filter-section">
-        <div class="container">
-            <div class="filter-tabs">
-                <div class="filter-tab active" data-filter="all">
-                    <i class="fas fa-th-large"></i>
-                    All Classes
-                </div>
-                <div class="filter-tab" data-filter="basic">
-                    <i class="fas fa-dumbbell"></i>
-                    Basic Elite
-                </div>
-                <div class="filter-tab premium" data-filter="premium">
-                    <i class="fas fa-crown"></i>
-                    Premium Elite
-                </div>
-                <div class="filter-tab platinum" data-filter="platinum">
-                    <i class="fas fa-gem"></i>
-                    Platinum Elite
-                </div>
-                <div class="filter-tab" data-filter="beginner">
-                    <i class="fas fa-seedling"></i>
-                    Beginner
-                </div>
-                <div class="filter-tab" data-filter="intermediate">
-                    <i class="fas fa-chart-line"></i>
-                    Intermediate
-                </div>
-                <div class="filter-tab" data-filter="advanced">
-                    <i class="fas fa-fire"></i>
-                    Advanced
-                </div>
-            </div>
+            <div class="membership-badge" id="membership-badge-dynamic">Loading Membership...</div>
+            <h1 class="hero-title" id="hero-title-dynamic">Your Classes</h1>
+            <p class="hero-subtitle" id="hero-subtitle-dynamic">Discover and book classes tailored to your FlexFusion Elite membership.</p>
         </div>
     </section>
 
@@ -595,724 +149,208 @@
     <section class="classes-section">
         <div class="container">
             <div class="row" id="classesGrid">
-                <!-- Basic Elite Classes -->
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="basic" data-level="beginner">
-                    <div class="class-card basic">
-                        <div class="class-tier-badge basic">BASIC ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon basic">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="class-difficulty basic">Beginner</div>
-                        </div>
-                        <h3 class="class-title">Cardio Blast</h3>
-                        <p class="class-description">High-energy cardio workout designed to improve cardiovascular health and burn calories effectively.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">45 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-fire"></i></div>
-                                <div class="detail-label">Calories</div>
-                                <div class="detail-value">300-400</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-users"></i></div>
-                                <div class="detail-label">Max Size</div>
-                                <div class="detail-value">15 people</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book basic" onclick="bookClass('Cardio Blast', 'basic')">
-                                <i class="fas fa-calendar-plus"></i> Book Class
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Cardio Blast')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="basic" data-level="beginner">
-                    <div class="class-card basic">
-                        <div class="class-tier-badge basic">BASIC ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon basic">
-                                <i class="fas fa-dumbbell"></i>
-                            </div>
-                            <div class="class-difficulty basic">Beginner</div>
-                        </div>
-                        <h3 class="class-title">Strength Basics</h3>
-                        <p class="class-description">Introduction to strength training with proper form and technique using basic equipment.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">50 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-fire"></i></div>
-                                <div class="detail-label">Calories</div>
-                                <div class="detail-value">250-350</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-users"></i></div>
-                                <div class="detail-label">Max Size</div>
-                                <div class="detail-value">12 people</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book basic" onclick="bookClass('Strength Basics', 'basic')">
-                                <i class="fas fa-calendar-plus"></i> Book Class
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Strength Basics')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="basic" data-level="intermediate">
-                    <div class="class-card basic">
-                        <div class="class-tier-badge basic">BASIC ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon basic">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                            <div class="class-difficulty basic">Intermediate</div>
-                        </div>
-                        <h3 class="class-title">Circuit Training</h3>
-                        <p class="class-description">Fast-paced workout combining cardio and strength exercises in timed circuits.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">40 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-fire"></i></div>
-                                <div class="detail-label">Calories</div>
-                                <div class="detail-value">350-450</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-users"></i></div>
-                                <div class="detail-label">Max Size</div>
-                                <div class="detail-value">10 people</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book basic" onclick="bookClass('Circuit Training', 'basic')">
-                                <i class="fas fa-calendar-plus"></i> Book Class
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Circuit Training')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="basic" data-level="beginner">
-                    <div class="class-card basic">
-                        <div class="class-tier-badge basic">BASIC ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon basic">
-                                <i class="fas fa-leaf"></i>
-                            </div>
-                            <div class="class-difficulty basic">All Levels</div>
-                        </div>
-                        <h3 class="class-title">Flexibility & Mobility</h3>
-                        <p class="class-description">Gentle stretching and mobility exercises to improve flexibility and prevent injuries.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">30 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-fire"></i></div>
-                                <div class="detail-label">Calories</div>
-                                <div class="detail-value">100-150</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon basic"><i class="fas fa-users"></i></div>
-                                <div class="detail-label">Max Size</div>
-                                <div class="detail-value">20 people</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book basic" onclick="bookClass('Flexibility & Mobility', 'basic')">
-                                <i class="fas fa-calendar-plus"></i> Book Class
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Flexibility & Mobility')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Premium Elite Classes -->
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="premium" data-level="advanced">
-                    <div class="class-card premium">
-                        <div class="class-tier-badge premium">PREMIUM ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon premium">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <div class="class-difficulty premium">Advanced</div>
-                        </div>
-                        <h3 class="class-title">HIIT Intensive</h3>
-                        <p class="class-description">High-intensity interval training with premium equipment and personalized coaching for maximum results.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">60 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-fire"></i></div>
-                                <div class="detail-label">Calories</div>
-                                <div class="detail-value">500-700</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-users"></i></div>
-                                <div class="detail-label">Max Size</div>
-                                <div class="detail-value">8 people</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book premium" onclick="bookClass('HIIT Intensive', 'premium')">
-                                <i class="fas fa-crown"></i> Book Premium
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('HIIT Intensive')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="premium" data-level="intermediate">
-                    <div class="class-card premium">
-                        <div class="class-tier-badge premium">PREMIUM ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon premium">
-                                <i class="fas fa-om"></i>
-                            </div>
-                            <div class="class-difficulty premium">Intermediate</div>
-                        </div>
-                        <h3 class="class-title">Power Yoga Flow</h3>
-                        <p class="class-description">Dynamic yoga sequences combining strength, flexibility, and mindfulness in a heated studio environment.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">75 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-fire"></i></div>
-                                <div class="detail-label">Calories</div>
-                                <div class="detail-value">300-450</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-users"></i></div>
-                                <div class="detail-label">Max Size</div>
-                                <div class="detail-value">12 people</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book premium" onclick="bookClass('Power Yoga Flow', 'premium')">
-                                <i class="fas fa-crown"></i> Book Premium
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Power Yoga Flow')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="premium" data-level="intermediate">
-                    <div class="class-card premium">
-                        <div class="class-tier-badge premium">PREMIUM ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon premium">
-                                <i class="fas fa-bicycle"></i>
-                            </div>
-                            <div class="class-difficulty premium">All Levels</div>
-                        </div>
-                        <h3 class="class-title">Spin Class Elite</h3>
-                        <p class="class-description">Premium indoor cycling with immersive lighting, music, and performance tracking technology.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">45 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-fire"></i></div>
-                                <div class="detail-label">Calories</div>
-                                <div class="detail-value">450-600</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-users"></i></div>
-                                <div class="detail-label">Max Size</div>
-                                <div class="detail-value">15 people</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book premium" onclick="bookClass('Spin Class Elite', 'premium')">
-                                <i class="fas fa-crown"></i> Book Premium
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Spin Class Elite')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="premium" data-level="intermediate">
-                    <div class="class-card premium">
-                        <div class="class-tier-badge premium">PREMIUM ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon premium">
-                                <i class="fas fa-fist-raised"></i>
-                            </div>
-                            <div class="class-difficulty premium">Intermediate</div>
-                        </div>
-                        <h3 class="class-title">Boxing Fundamentals</h3>
-                        <p class="class-description">Learn proper boxing techniques with heavy bags, speed bags, and professional coaching.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">50 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-fire"></i></div>
-                                <div class="detail-label">Calories</div>
-                                <div class="detail-value">400-500</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon premium"><i class="fas fa-users"></i></div>
-                                <div class="detail-label">Max Size</div>
-                                <div class="detail-value">8 people</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book premium" onclick="bookClass('Boxing Fundamentals', 'premium')">
-                                <i class="fas fa-crown"></i> Book Premium
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Boxing Fundamentals')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Platinum Elite Classes -->
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="platinum" data-level="advanced">
-                    <div class="class-card platinum">
-                        <div class="class-tier-badge platinum">PLATINUM ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon platinum">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                            <div class="class-difficulty platinum">Elite</div>
-                        </div>
-                        <h3 class="class-title">1-on-1 Personal Training</h3>
-                        <p class="class-description">Exclusive one-on-one sessions with elite trainers, customized workout plans, and real-time form correction.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">60 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-target"></i></div>
-                                <div class="detail-label">Focus</div>
-                                <div class="detail-value">Personal</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-crown"></i></div>
-                                <div class="detail-label">Trainer</div>
-                                <div class="detail-value">Elite</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book platinum" onclick="bookClass('1-on-1 Personal Training', 'platinum')">
-                                <i class="fas fa-gem"></i> Book Platinum
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('1-on-1 Personal Training')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="platinum" data-level="advanced">
-                    <div class="class-card platinum">
-                        <div class="class-tier-badge platinum">PLATINUM ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon platinum">
-                                <i class="fas fa-fire"></i>
-                            </div>
-                            <div class="class-difficulty platinum">Expert</div>
-                        </div>
-                        <h3 class="class-title">Elite CrossFit</h3>
-                        <p class="class-description">High-intensity CrossFit training with Olympic lifting, advanced movements, and competition-level coaching.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">75 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-fire"></i></div>
-                                <div class="detail-label">Calories</div>
-                                <div class="detail-value">600-800</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-users"></i></div>
-                                <div class="detail-label">Max Size</div>
-                                <div class="detail-value">6 people</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book platinum" onclick="bookClass('Elite CrossFit', 'platinum')">
-                                <i class="fas fa-gem"></i> Book Platinum
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Elite CrossFit')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="platinum" data-level="beginner">
-                    <div class="class-card platinum">
-                        <div class="class-tier-badge platinum">PLATINUM ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon platinum">
-                                <i class="fas fa-spa"></i>
-                            </div>
-                            <div class="class-difficulty platinum">Therapeutic</div>
-                        </div>
-                        <h3 class="class-title">Recovery & Wellness</h3>
-                        <p class="class-description">Comprehensive recovery sessions including massage therapy, cryotherapy, and advanced stretching techniques.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">90 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-heart"></i></div>
-                                <div class="detail-label">Benefits</div>
-                                <div class="detail-value">Recovery</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-leaf"></i></div>
-                                <div class="detail-label">Type</div>
-                                <div class="detail-value">Wellness</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book platinum" onclick="bookClass('Recovery & Wellness', 'platinum')">
-                                <i class="fas fa-gem"></i> Book Platinum
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Recovery & Wellness')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-6 mb-4 class-item" data-tier="platinum" data-level="advanced">
-                    <div class="class-card platinum">
-                        <div class="class-tier-badge platinum">PLATINUM ELITE</div>
-                        <div class="class-header">
-                            <div class="class-icon platinum">
-                                <i class="fas fa-medal"></i>
-                            </div>
-                            <div class="class-difficulty platinum">Professional</div>
-                        </div>
-                        <h3 class="class-title">Athletic Performance</h3>
-                        <p class="class-description">Sport-specific training programs designed for athletes and performance enthusiasts with advanced metrics tracking.</p>
-                        <div class="class-details">
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-clock"></i></div>
-                                <div class="detail-label">Duration</div>
-                                <div class="detail-value">90 min</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-chart-line"></i></div>
-                                <div class="detail-label">Tracking</div>
-                                <div class="detail-value">Advanced</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-icon platinum"><i class="fas fa-trophy"></i></div>
-                                <div class="detail-label">Level</div>
-                                <div class="detail-value">Elite</div>
-                            </div>
-                        </div>
-                        <div class="class-actions">
-                            <button class="btn-book platinum" onclick="bookClass('Athletic Performance', 'platinum')">
-                                <i class="fas fa-gem"></i> Book Platinum
-                            </button>
-                            <button class="btn-info" onclick="showClassInfo('Athletic Performance')">
-                                <i class="fas fa-info-circle"></i>
-                            </button>
-                        </div>
-                    </div>
+                <div class="col-12 text-center">
+                    <i class="fas fa-spinner fa-spin fa-3x"></i>
+                    <p class="mt-3">Loading available classes...</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Schedule Overview -->
-    <section class="schedule-overview">
-        <div class="container">
-            <div class="schedule-card">
-                <h2 class="schedule-title">Today's Class Schedule</h2>
-                <p class="schedule-subtitle">Popular classes happening today - book your spot now!</p>
-                <div class="schedule-grid">
-                    <div class="schedule-item">
-                        <div class="schedule-time">6:00 AM</div>
-                        <div class="schedule-class">Cardio Blast</div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">7:30 AM</div>
-                        <div class="schedule-class">HIIT Intensive</div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">12:00 PM</div>
-                        <div class="schedule-class">Power Yoga Flow</div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">6:00 PM</div>
-                        <div class="schedule-class">Boxing Fundamentals</div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">7:30 PM</div>
-                        <div class="schedule-class">Strength Basics</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Membership CTA -->
-    <section class="membership-cta">
-        <div class="container">
-            <h2 class="cta-title">Ready to Start Your Fitness Journey?</h2>
-            <p class="cta-subtitle">Choose the membership that fits your goals and unlock access to our premium classes and facilities</p>
-            <div class="cta-buttons">
-                <a href="home-page.html" class="btn-cta">
-                    <i class="fas fa-crown"></i> View Memberships
-                </a>
-                <a href="contact.html" class="btn-cta btn-cta-outline">
-                    <i class="fas fa-calendar-alt"></i> Schedule Tour
-                </a>
-            </div>
-        </div>
-    </section>
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <script>
-        // --- DYNAMIC NAVBAR SCRIPT ---
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             const token = localStorage.getItem('token');
-            const navbarContainer = document.getElementById('navbar-container');
-            
-            let navbarHTML;
+            const isLoggedIn = !!token;
+            const classesGrid = document.getElementById('classesGrid');
 
-            if (token) {
-                // Logged-in user navbar
+            // --- 1. DYNAMIC NAVBAR LOGIC ---
+            const navbarContainer = document.getElementById('navbar-container');
+            let navbarHTML = '';
+
+            if (isLoggedIn) {
                 navbarHTML = `
                 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
                     <div class="container">
-                        <a class="navbar-brand" href="home-page.html">
-                            <div class="brand-icon"><i class="fas fa-dumbbell"></i></div>
-                            FlexFusion Elite
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+                        <a class="navbar-brand" href="dashboard.html"><div class="brand-icon"><i class="fas fa-dumbbell"></i></div>FlexFusion Elite</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
-                                <li class="nav-item"><a class="nav-link" href="home-page.html">Memberships</a></li>
-                                <li class="nav-item"><a class="nav-link" href="classes.html">Classes</a></li>
+                                <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                                <li class="nav-item"><a class="nav-link" href="classes.html">Book Classes</a></li>
                                 <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn">Logout</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn" style="cursor: pointer;">Logout</a></li>
                             </ul>
                         </div>
                     </div>
                 </nav>`;
             } else {
-                // Public visitor navbar
                 navbarHTML = `
                 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
                     <div class="container">
-                        <a class="navbar-brand" href="index.html">
-                            <div class="brand-icon"><i class="fas fa-dumbbell"></i></div>
-                            FlexFusion Elite
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+                        <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fas fa-dumbbell"></i></div>FlexFusion Elite</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="home-page.html">Membership</a></li>
                                 <li class="nav-item"><a class="nav-link" href="classes.html">Classes</a></li>
                                 <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                                 <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                                 <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-                                <li class="nav-item"><a class="nav-link" href="registration.html" style="background: #667eea; border-radius: 20px; padding: 8px 15px; color: white !important;">Register</a></li>
                             </ul>
                         </div>
                     </div>
                 </nav>`;
             }
-
             navbarContainer.innerHTML = navbarHTML;
 
-            // Add logout functionality if the logout button exists
             const logoutBtn = document.getElementById('logoutBtn');
             if (logoutBtn) {
-                logoutBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    localStorage.clear();
-                    window.location.href = 'login.html';
-                });
+                logoutBtn.addEventListener('click', (e) => { e.preventDefault(); localStorage.clear(); window.location.href = 'index.html'; });
+            }
+
+            // --- 2. DYNAMIC CONTENT LOADING ---
+            let userMembershipPlan = 'Visitor';
+            let classesToFetchEndpoint = '/api/public/classes'; // Default: fetches all classes
+
+            try {
+                if (isLoggedIn) {
+                    const profileRes = await fetch('/api/user/profile', { headers: { 'Authorization': `Bearer ${token}` } });
+                    if (!profileRes.ok) throw new Error('Failed to fetch profile.');
+                    const { profile } = await profileRes.json();
+                    userMembershipPlan = profile.membership.plan || 'No Plan';
+
+                    // Determine API endpoint based on user's plan
+                    if (userMembershipPlan === 'Basic') {
+                        classesToFetchEndpoint = '/api/public/classes/basic';
+                    } else if (userMembershipPlan === 'Premium') {
+                        classesToFetchEndpoint = '/api/public/classes/premium';
+                    } else if (userMembershipPlan === 'Platinum') {
+                        classesToFetchEndpoint = '/api/public/classes/platinum'; // Platinum sees all classes
+                    }
+
+                    // Update hero section for logged-in user
+                    document.getElementById('hero-title-dynamic').textContent = `Welcome, ${profile.fullName.split(' ')[0]}!`;
+                    document.getElementById('hero-subtitle-dynamic').textContent = `Explore classes tailored for your ${userMembershipPlan} Elite membership.`;
+                    document.getElementById('membership-badge-dynamic').innerHTML = `<i class="fas fa-${userMembershipPlan === 'Basic' ? 'dumbbell' : (userMembershipPlan === 'Premium' ? 'crown' : (userMembershipPlan === 'Platinum' ? 'gem' : 'user'))}"></i> ${userMembershipPlan} Elite Member`;
+                    document.getElementById('hero-section-dynamic').style.background = `var(--tier-${userMembershipPlan.toLowerCase()}-gradient)`;
+
+                } else {
+                    // For visitors, hero section remains generic
+                    document.getElementById('hero-title-dynamic').textContent = `Explore All Classes`;
+                    document.getElementById('hero-subtitle-dynamic').textContent = `See what FlexFusion Elite has to offer. Login or Register to book!`;
+                    document.getElementById('membership-badge-dynamic').innerHTML = `<i class="fas fa-user"></i> Visitor`;
+                    document.getElementById('hero-section-dynamic').style.background = `linear-gradient(135deg, #667eea 0%, #764ba2 100%)`; // Default blue gradient
+                }
+
+                // Fetch classes from the determined endpoint
+                const classesRes = await fetch(classesToFetchEndpoint);
+                if (!classesRes.ok) throw new Error('Failed to fetch classes.');
+                const classes = await classesRes.json();
+                
+                renderClasses(classes, userMembershipPlan, isLoggedIn);
+
+            } catch (error) {
+                console.error("Error loading classes page:", error);
+                classesGrid.innerHTML = `<div class="col-12 alert alert-danger">Error: ${error.message}. Please try again later or ensure you're logged in.</div>`;
             }
         });
 
-
-        // --- ORIGINAL PAGE SCRIPT ---
-
-        // Filter functionality
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                // Remove active class from all tabs
-                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                // Add active class to clicked tab
-                this.classList.add('active');
-                
-                const filter = this.getAttribute('data-filter');
-                const classItems = document.querySelectorAll('.class-item');
-                
-                classItems.forEach(item => {
-                    item.classList.add('hidden'); // Hide all items first
-                    
-                    const tier = item.getAttribute('data-tier');
-                    const level = item.getAttribute('data-level');
-                    const difficultyText = item.querySelector('.class-difficulty').textContent.toLowerCase();
-
-                    if (filter === 'all' || 
-                        filter === tier || 
-                        filter === level ||
-                        (filter === 'beginner' && difficultyText.includes('all'))
-                       ) {
-                        item.classList.remove('hidden');
-                    }
-                });
-                
-                // Animate visible cards
-                setTimeout(() => {
-                    const visibleCards = document.querySelectorAll('.class-item:not(.hidden)');
-                    visibleCards.forEach((card, index) => {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            card.style.transition = 'all 0.4s ease';
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, index * 100);
-                    });
-                }, 100);
-            });
-        });
-
-        // Book class function
-        function bookClass(className, tier) {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                alert('You must be logged in to book a class.');
-                window.location.href = 'login.html';
+        // --- 3. CLASS RENDERING FUNCTION ---
+        function renderClasses(classes, userMembershipPlan, isLoggedIn) {
+            if (classes.length === 0) {
+                classesGrid.innerHTML = `<div class="col-12 text-center"><p>No classes are currently available for your tier. Please check back later.</p></div>`;
                 return;
             }
-
-            // At this point, you could make an API call to the backend to actually book the class.
-            // For now, we'll just show the frontend confirmation.
-
-            if (confirm(`Book ${className} class?`)) {
-                const btn = event.target.closest('.btn-book'); // Ensure we get the button
-                const originalText = btn.innerHTML;
-                
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking...';
-                
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-check"></i> Booked!';
-                    btn.style.opacity = '0.8';
-                    
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                        btn.style.opacity = '1';
-                    }, 2000);
-                }, 1500);
-                
-                // For demo purposes, we can still use localStorage
-                const bookings = JSON.parse(localStorage.getItem('classBookings') || '[]');
-                bookings.push({
-                    className: className,
-                    date: new Date().toISOString(),
-                    status: 'booked',
-                    type: tier
-                });
-                localStorage.setItem('classBookings', JSON.stringify(bookings));
-            }
-        }
-
-        // Show class info function
-        function showClassInfo(className) {
-            const classInfo = {
-                'Cardio Blast': 'A high-energy cardiovascular workout that combines various cardio exercises to boost your heart rate and burn calories. Perfect for beginners looking to improve their fitness level.',
-                'Strength Basics': 'Learn the fundamentals of strength training with proper form and technique. This class covers basic movements and helps build a solid foundation for your fitness journey.',
-                'Circuit Training': 'A fast-paced workout that combines strength and cardio exercises in timed circuits. Great for improving overall fitness and burning calories efficiently.',
-                'Flexibility & Mobility': 'Focus on improving your range of motion and preventing injuries through guided stretching and mobility exercises. Suitable for all fitness levels.',
-                'HIIT Intensive': 'High-Intensity Interval Training that pushes your limits with short bursts of intense exercise followed by recovery periods. Maximum results in minimum time.',
-                'Power Yoga Flow': 'Dynamic yoga practice that builds strength, flexibility, and mindfulness. Performed in a heated studio environment for enhanced benefits.',
-                'Spin Class Elite': 'Premium indoor cycling experience with immersive lighting, energizing music, and real-time performance tracking.',
-                'Boxing Fundamentals': 'Learn proper boxing techniques including stance, footwork, and punching combinations using professional equipment.',
-                '1-on-1 Personal Training': 'Exclusive one-on-one training sessions with elite trainers. Completely customized to your goals and fitness level.',
-                'Elite CrossFit': 'Advanced CrossFit training with Olympic lifting and complex movements. Designed for experienced athletes and fitness enthusiasts.',
-                'Recovery & Wellness': 'Comprehensive recovery sessions including massage therapy, stretching, and wellness treatments to optimize your recovery.',
-                'Athletic Performance': 'Sport-specific training programs with advanced performance tracking and metrics analysis.'
-            };
             
-            alert(classInfo[className] || 'Class information not available.');
+            classesGrid.innerHTML = classes.map(cls => {
+                const tierClass = userMembershipPlan ? `${userMembershipPlan.toLowerCase()}-tier` : ''; // Add class for tier-specific styling
+                
+                // Determine icon for the class card
+                let classCardIcon = 'fas fa-dumbbell'; // Default
+                if (cls.name.toLowerCase().includes('yoga') || cls.name.toLowerCase().includes('pilates')) classCardIcon = 'fas fa-om';
+                else if (cls.name.toLowerCase().includes('hiit') || cls.name.toLowerCase().includes('crossfit')) classCardIcon = 'fas fa-bolt';
+                else if (cls.name.toLowerCase().includes('boxing')) classCardIcon = 'fas fa-fist-raised';
+                else if (cls.name.toLowerCase().includes('spin') || cls.name.toLowerCase().includes('bike')) classCardIcon = 'fas fa-bicycle';
+                else if (cls.name.toLowerCase().includes('recovery') || cls.name.toLowerCase().includes('wellness')) classCardIcon = 'fas fa-spa';
+                else if (cls.name.toLowerCase().includes('athletic') || cls.name.toLowerCase().includes('performance')) classCardIcon = 'fas fa-medal';
+                
+                // Determine the action button based on login status
+                const actionButtonHTML = isLoggedIn 
+                    ? `<button class="btn btn-book mt-auto" onclick="bookClass('${cls._id}', '${cls.name}', '${cls.schedule}', this)"><i class="fas fa-calendar-plus"></i> Book Class</button>`
+                    : `<a href="login.html" class="btn btn-book btn-login-prompt mt-auto"><i class="fas fa-sign-in-alt"></i> Login to Book</a>`;
+
+                return `
+                <div class="col-lg-6 col-md-6 mb-4">
+                    <div class="class-card ${tierClass} d-flex flex-column h-100">
+                        <div>
+                            <div class="class-header">
+                                <div class="class-icon"><i class="${classCardIcon}"></i></div>
+                                <div class="class-difficulty">${cls.difficulty}</div>
+                            </div>
+                            <h3 class="class-title">${cls.name}</h3>
+                            <p class="class-description text-muted">${cls.description}</p>
+                            <div class="class-details">
+                                <div class="detail-item"><div class="detail-icon"><i class="fas fa-calendar-alt"></i></div><div class="detail-label">Schedule</div><div class="detail-value">${cls.schedule}</div></div>
+                                <div class="detail-item"><div class="detail-icon"><i class="fas fa-user-tie"></i></div><div class="detail-label">Trainer</div><div class="detail-value">${cls.trainer}</div></div>
+                                <div class="detail-item"><div class="detail-icon"><i class="fas fa-users"></i></div><div class="detail-label">Max Size</div><div class="detail-value">${cls.maxSize} people</div></div>
+                            </div>
+                        </div>
+                        <div class="class-actions mt-auto">${actionButtonHTML}</div>
+                    </div>
+                </div>`;
+            }).join('');
         }
 
-        // Animate cards on load
-        window.addEventListener('load', function() {
-            const cards = document.querySelectorAll('.class-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s ease';
+        // --- 4. BOOKING FUNCTIONALITY (Global) ---
+        function bookClass(classId, className, classSchedule, btnElement) {
+            const token = localStorage.getItem('token');
+            if (!token) { window.location.href = 'login.html'; return; } // Safeguard
+
+            if (!confirm(`Confirm booking for "${className}"?`)) return;
+
+            const allButtonsForClass = document.querySelectorAll(`[onclick*="'${classId}'"]`);
+            allButtonsForClass.forEach(btn => { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking...'; });
+
+            fetch('/api/user/bookings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ classId, className, classSchedule })
+            })
+            .then(res => res.json().then(data => ({ ok: res.ok, data })))
+            .then(response => {
+                if (!response.ok) throw new Error(response.data.msg);
+                
+                allButtonsForClass.forEach(btn => {
+                    btn.innerHTML = '<i class="fas fa-check"></i> Booked!';
+                    btn.style.background = 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)';
+                });
                 
                 setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100 + 300);
+                    if (confirm("Class booked successfully! Go to your dashboard to see it?")) {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        // Reset button for other class instances if user doesn't go to dashboard
+                        allButtonsForClass.forEach(btn => { 
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="fas fa-calendar-plus"></i> Book Class';
+                            // Note: You might want more sophisticated state management for "booked" classes
+                        });
+                    }
+                }, 500); // Small delay to show "Booked!"
+            })
+            .catch(err => {
+                alert('Booking failed: ' + err.message);
+                allButtonsForClass.forEach(btn => {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-calendar-plus"></i> Book Class';
+                });
             });
-        });
+        }
     </script>
 </body>
 </html>

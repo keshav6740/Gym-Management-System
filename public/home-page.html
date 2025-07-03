@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Your Membership - FlexFusion Elite</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -21,12 +23,16 @@
             line-height: 1.6;
         }
 
-        /* Modern Navbar */
         .navbar {
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         .navbar-brand {
@@ -35,18 +41,25 @@
             color: #ffffff !important;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
         }
 
         .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
+            width: 45px;
+            height: 45px;
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
 
         .nav-link {
@@ -54,11 +67,32 @@
             font-weight: 500;
             margin: 0 15px;
             transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px !important;
+            border-radius: 25px;
         }
 
         .nav-link:hover {
-            color: #667eea !important;
+            color: #ffffff !important;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
         }
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
 
         /* Hero Section */
         .hero-section {
@@ -300,9 +334,17 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 30px rgba(74, 222, 128, 0.3); }
-            50% { box-shadow: 0 0 50px rgba(74, 222, 128, 0.6); }
-            100% { box-shadow: 0 0 30px rgba(74, 222, 128, 0.3); }
+            0% {
+                box-shadow: 0 0 30px rgba(74, 222, 128, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 50px rgba(74, 222, 128, 0.6);
+            }
+
+            100% {
+                box-shadow: 0 0 30px rgba(74, 222, 128, 0.3);
+            }
         }
 
         /* Responsive Design */
@@ -310,12 +352,12 @@
             .hero-title {
                 font-size: 2.5rem;
             }
-            
+
             .membership-card {
                 margin-bottom: 2rem;
                 min-height: auto;
             }
-            
+
             .plan-price {
                 font-size: 2.5rem;
             }
@@ -342,48 +384,25 @@
         }
 
         @keyframes spin {
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
     </style>
 </head>
+
 <body>
-    <!-- Modern Navbar -->
-    <!-- Standard Logged-In Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="home-page.html">
-            <div class="brand-icon">
-                <i class="fas fa-dumbbell"></i>
-            </div>
-            FlexFusion Elite
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="home-page.html">Memberships</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="classes.html">Classes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="profile.html">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="logoutBtn">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+    <!-- Navbar Container -->
+<div id="navbar-container">
+    <!-- The correct navbar will be dynamically inserted here -->
+</div>
 
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
             <h1 class="hero-title">Choose Your Elite Plan</h1>
-            <p class="hero-subtitle">Select the perfect membership to unlock your fitness potential and join our premium community</p>
+            <p class="hero-subtitle">Select the perfect membership to unlock your fitness potential and join our premium
+                community</p>
         </div>
     </section>
 
@@ -392,7 +411,7 @@
         <div class="container">
             <h2 class="section-title">Membership Plans</h2>
             <p class="section-subtitle">Flexible plans designed to fit your lifestyle and fitness goals</p>
-            
+
             <div class="row">
                 <!-- Basic Plan -->
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -404,7 +423,8 @@
                             <h3 class="plan-name">Basic Elite</h3>
                             <div class="plan-price">₹1,000</div>
                             <div class="plan-period">per month</div>
-                            <p class="plan-description">Perfect for fitness beginners ready to start their transformation journey with essential gym access.</p>
+                            <p class="plan-description">Perfect for fitness beginners ready to start their
+                                transformation journey with essential gym access.</p>
                             <ul class="plan-features">
                                 <li>Access to basic gym equipment</li>
                                 <li>Locker room facilities</li>
@@ -428,7 +448,8 @@
                             <h3 class="plan-name">Premium Elite</h3>
                             <div class="plan-price">₹1,500</div>
                             <div class="plan-period">per month</div>
-                            <p class="plan-description">Enhanced experience with group classes and additional amenities for serious fitness enthusiasts.</p>
+                            <p class="plan-description">Enhanced experience with group classes and additional amenities
+                                for serious fitness enthusiasts.</p>
                             <ul class="plan-features">
                                 <li>All Basic Elite benefits</li>
                                 <li>Group fitness classes</li>
@@ -452,7 +473,8 @@
                             <h3 class="plan-name">Platinum Elite</h3>
                             <div class="plan-price">₹3,000</div>
                             <div class="plan-period">per month</div>
-                            <p class="plan-description">Ultimate luxury experience with personal training and exclusive perks for elite members.</p>
+                            <p class="plan-description">Ultimate luxury experience with personal training and exclusive
+                                perks for elite members.</p>
                             <ul class="plan-features">
                                 <li>All Premium Elite benefits</li>
                                 <li>Personal training sessions</li>
@@ -494,26 +516,64 @@
         </div>
     </section>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <script>
-
-        document.getElementById('logoutBtn').addEventListener('click', function(e) {
-        e.preventDefault();
-        // Clear all user data from storage
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('fullName');
-        localStorage.removeItem('email');
-        // Redirect to login page
-        window.location.href = 'login.html';
-    });
-
-
         document.addEventListener('DOMContentLoaded', function () {
-            // Add click event listeners to each membership card
+            // --- 1. DYNAMIC NAVBAR LOGIC ---
+            const token = localStorage.getItem('token');
+            const isLoggedIn = !!token; // Check if user is logged in
+            const navbarContainer = document.getElementById('navbar-container');
+            let navbarHTML = '';
+
+            if (isLoggedIn) {
+                // Logged-in user navbar (Dashboard, Book Classes, Profile, Logout)
+                navbarHTML = `
+                <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+                    <div class="container">
+                        <a class="navbar-brand" href="dashboard.html"><div class="brand-icon"><i class="fas fa-dumbbell"></i></div>FlexFusion Elite</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                                <li class="nav-item"><a class="nav-link" href="classes.html">Book Classes</a></li>
+                                <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn" style="cursor: pointer;">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>`;
+            } else {
+                // Public visitor navbar (Home, Classes, About, Contact, Login, Register)
+                navbarHTML = `
+                <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+                    <div class="container">
+                        <a class="navbar-brand" href="index.html"><div class="brand-icon"><i class="fas fa-dumbbell"></i></div>FlexFusion Elite</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="membership.html">Membership</a></li>
+                                <li class="nav-item"><a class="nav-link" href="classes.html">Classes</a></li>
+                                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                                <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>`;
+            }
+            navbarContainer.innerHTML = navbarHTML;
+
+            // Attach logout listener if the button exists
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => { e.preventDefault(); localStorage.clear(); window.location.href = 'index.html'; });
+            }
+
+            // --- 2. MEMBERSHIP SELECTION LOGIC ---
             document.getElementById('basicMembership').addEventListener('click', function () {
                 handleMembershipClick('Basic Membership', 1000, this);
             });
@@ -527,96 +587,58 @@
             });
 
             function handleMembershipClick(plan, amount, cardElement) {
-    // Show loading state
-    cardElement.classList.add('loading');
+                cardElement.classList.add('loading');
+                document.querySelectorAll('.membership-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
 
-    // Remove selected state from all cards
-    document.querySelectorAll('.membership-card').forEach(card => {
-        card.classList.remove('selected');
-    });
-
-    // 1. Get the authentication token from localStorage
-    const token = localStorage.getItem('token');
-
-    // 2. Check if the user is logged in
-    if (!token) {
-        alert('You must be logged in to select a membership.');
-        window.location.href = 'login.html'; // Redirect to login if not logged in
-        return; // Stop the function
-    }
-    
-    // Add selected state to the clicked card after a short delay
-    setTimeout(() => {
-        cardElement.classList.remove('loading');
-        cardElement.classList.add('selected');
-    }, 1000);
-
-    const requestBody = {
-        plan: plan // The backend expects a plan name like "Basic Membership"
-    };
-
-    // 3. Send the data to the correct API endpoint with the Authorization header
-    fetch('/api/user/membership', { // Correct API path
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // This is the crucial part
-        },
-        body: JSON.stringify(requestBody)
-    })
-    .then(response => {
-        if (!response.ok) {
-            // If the server responds with an error (e.g., 401 Unauthorized)
-            throw new Error('Failed to update membership. Please log in again.');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            console.log('Membership updated successfully');
-            // Show success feedback and redirect
-            setTimeout(() => {
-                redirectToMembershipPage(plan);
-            }, 1500);
-        } else {
-            throw new Error(data.message || 'An unknown error occurred.');
-        }
-    })
-    .catch(error => {
-        console.error('Error adding membership:', error);
-        alert(error.message); // Show the error to the user
-        cardElement.classList.remove('loading', 'selected');
-    });
-}
-
-            function redirectToMembershipPage(plan) {
-                let redirectUrl;
-                switch (plan) {
-                    case 'Basic Membership':
-                        redirectUrl = 'basic_class.html';
-                        break;
-                    case 'Premium Membership':
-                        redirectUrl = 'premium_class.html';
-                        break;
-                    case 'Platinum Membership':
-                        redirectUrl = 'platinum_class.html';
-                        break;
-                    default:
-                        redirectUrl = 'index.html';
-                        break;
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    alert('You must be logged in to select a membership. Please login or register first.');
+                    window.location.href = 'login.html';
+                    return;
                 }
-                window.location.href = redirectUrl;
-            }
-        });
+                
+                setTimeout(() => {
+                    cardElement.classList.remove('loading');
+                    cardElement.classList.add('selected');
+                }, 1000);
 
-        // Add entrance animations
-        window.addEventListener('load', function() {
+                const requestBody = { plan: plan };
+
+                fetch('/api/user/membership', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(requestBody)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update membership. Please log in again.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        console.log('Membership updated successfully');
+                        // Redirect to the classes page based on tier, or dashboard if no tier-specific page needed
+                        window.location.href = 'classes.html'; // All users go to the smart classes page
+                    } else {
+                        throw new new Error(data.message || 'An unknown error occurred.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding membership:', error);
+                    alert(error.message);
+                    cardElement.classList.remove('loading', 'selected');
+                });
+            }
+
+            // --- 3. ANIMATIONS ---
             const cards = document.querySelectorAll('.membership-card');
             cards.forEach((card, index) => {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(50px)';
                 card.style.transition = 'all 0.6s ease';
-                
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';

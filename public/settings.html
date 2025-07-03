@@ -13,6 +13,77 @@
             background: #0a0a0a;
             color: #ffffff;
         }
+
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px !important;
+            border-radius: 25px;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
         .main-container {
             margin-top: 100px;
         }
@@ -41,22 +112,26 @@
 </head>
 <body>
     <!-- Standard Logged-In Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-        <div class="container">
-            <a class="navbar-brand" href="home-page.html" style="font-weight: 800; font-size: 1.8rem; color: #ffffff !important; display: flex; align-items: center; gap: 10px;">
-                <div class="brand-icon" style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;"><i class="fas fa-dumbbell"></i></div>
-                FlexFusion Elite
-            </a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="home-page.html" style="color: rgba(255, 255, 255, 0.8) !important; font-weight: 500; margin: 0 15px;">Memberships</a></li>
-                    <li class="nav-item"><a class="nav-link" href="classes.html" style="color: rgba(255, 255, 255, 0.8) !important; font-weight: 500; margin: 0 15px;">Classes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="profile.html" style="color: rgba(255, 255, 255, 0.8) !important; font-weight: 500; margin: 0 15px;">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn" style="color: rgba(255, 255, 255, 0.8) !important; font-weight: 500; margin: 0 15px;">Logout</a></li>
-                </ul>
-            </div>
+    <!-- Standard Logged-In User Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="dashboard.html">
+            <div class="brand-icon"><i class="fas fa-dumbbell"></i></div>
+            FlexFusion Elite
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="classes.html">Book Classes</a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" id="logoutBtn" style="cursor: pointer;">Logout</a></li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <div class="container main-container">
         <div class="row">

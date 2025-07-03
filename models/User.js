@@ -33,7 +33,20 @@ const UserSchema = new mongoose.Schema({
             type: String,
             default: 'Pending'
         }
-    }
+    },
+
+    bookings: [{
+        classId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Class'
+        },
+        className: String,
+        classSchedule: String,
+        bookingDate: {
+            type: Date,
+            default: Date.now
+        }
+    }]
 });
 
 // Hash password before saving

@@ -57,7 +57,7 @@
         .brand-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -371,6 +371,17 @@
 
         // Redirect to home page
         window.location.href = 'home-page.html';
+
+         fetch('/api/user/profile', { headers: { 'Authorization': `Bearer ${data.token}` }})
+            .then(res => res.json())
+            .then(user => {
+                if (user.membership && user.membership.plan) {
+                    window.location.href = 'dashboard.html'; // User has a plan, go to dashboard
+                } else {
+                    window.location.href = 'home-page.html'; // New user, go select a plan
+                }
+            });
+
     } else {
         throw new Error(data.message || 'Login failed');
     }

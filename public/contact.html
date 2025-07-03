@@ -6,7 +6,7 @@
     <title>Contact Us - FlexFusion Elite</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,14 +19,35 @@
             background: #0a0a0a;
             color: #ffffff;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Modern Navbar */
+        /* Enhanced Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(240, 147, 251, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(118, 75, 162, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Premium Navbar */
         .navbar {
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         .navbar-brand {
@@ -35,18 +56,24 @@
             color: #ffffff !important;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
         }
 
         .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
 
         .nav-link {
@@ -54,92 +81,247 @@
             font-weight: 500;
             margin: 0 15px;
             transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px !important;
+            border-radius: 25px;
         }
 
         .nav-link:hover {
-            color: #667eea !important;
+            color: #ffffff !important;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .register-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border-radius: 25px !important;
+            padding: 10px 20px !important;
+            color: white !important;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            color: white !important;
         }
 
         /* Hero Section */
         .hero-section {
-            padding: 120px 0 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            text-align: center;
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
             position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(240, 147, 251, 0.15) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50px;
+            padding: 12px 24px;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #667eea;
         }
 
         .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: white;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #ffffff 50%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
-            max-width: 600px;
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            font-weight: 300;
         }
 
         /* Contact Section */
         .contact-section {
-            padding: 100px 0;
+            padding: 120px 0;
             background: #0a0a0a;
         }
 
-        .contact-form {
-            background: #1a1a1a;
-            border-radius: 25px;
-            padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 100%;
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
         }
 
-        .contact-info {
-            background: #1a1a1a;
+        .section-badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
             border-radius: 25px;
-            padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 100%;
+            padding: 8px 20px;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
         }
 
         .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
             color: #ffffff;
         }
 
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+            border-radius: 30px;
+            padding: 3.5rem;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .contact-form:hover::before {
+            opacity: 1;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+            border-radius: 30px;
+            padding: 3.5rem;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .contact-info:hover::before {
+            opacity: 1;
+        }
+
+        .form-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            color: #ffffff;
+            position: relative;
+            z-index: 2;
+        }
+
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
         }
 
         .form-group label {
             color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
             display: block;
+            font-size: 0.95rem;
         }
 
         .form-control {
             background: rgba(255, 255, 255, 0.05);
             border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 15px 20px;
+            border-radius: 20px;
+            padding: 18px 24px;
             color: white;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
         }
 
         .form-control:focus {
             background: rgba(255, 255, 255, 0.08);
             border-color: #667eea;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
             color: white;
             outline: none;
+            transform: translateY(-2px);
         }
 
         .form-control::placeholder {
@@ -147,7 +329,7 @@
         }
 
         textarea.form-control {
-            min-height: 120px;
+            min-height: 140px;
             resize: vertical;
         }
 
@@ -155,177 +337,316 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 15px;
-            font-weight: 600;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            position: relative;
+            z-index: 2;
         }
 
         .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
             margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            transition: all 0.3s ease;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
         }
 
         .contact-item:hover {
             background: rgba(102, 126, 234, 0.1);
-            transform: translateX(10px);
+            transform: translateX(15px) translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.2);
         }
 
         .contact-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: white;
-            margin-right: 1.5rem;
+            margin-right: 2rem;
             flex-shrink: 0;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
 
         .contact-details h4 {
             color: #ffffff;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
         }
 
         .contact-details p {
             color: rgba(255, 255, 255, 0.7);
             margin: 0;
-        }
-
-        /* Map Section */
-        .map-section {
-            padding: 80px 0;
-            background: #111111;
-        }
-
-        .map-container {
-            background: #1a1a1a;
-            border-radius: 25px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-
-        .map-placeholder {
-            background: rgba(102, 126, 234, 0.1);
-            border: 2px dashed rgba(102, 126, 234, 0.3);
-            border-radius: 15px;
-            padding: 4rem 2rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .map-placeholder i {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1rem;
+            line-height: 1.6;
         }
 
         /* Hours Section */
         .hours-section {
-            padding: 80px 0;
-            background: #0a0a0a;
+            padding: 120px 0;
+            background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
         }
 
         .hours-card {
-            background: #1a1a1a;
-            border-radius: 25px;
-            padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+            border-radius: 30px;
+            padding: 4rem;
+            border: 1px solid rgba(102, 126, 234, 0.1);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .hours-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .hours-card:hover::before {
+            opacity: 1;
+        }
+
+        .hours-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 35px 100px rgba(102, 126, 234, 0.3);
         }
 
         .hours-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
             color: #ffffff;
+            position: relative;
+            z-index: 2;
         }
 
         .hours-list {
             list-style: none;
             padding: 0;
+            position: relative;
+            z-index: 2;
         }
 
         .hours-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         .hours-item:last-child {
             border-bottom: none;
         }
 
+        .hours-item:hover {
+            padding-left: 1rem;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 10px;
+        }
+
         .hours-day {
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .hours-time {
             color: #667eea;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 120px 0;
+            background: #0a0a0a;
+        }
+
+        .map-container {
+            background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+            border-radius: 30px;
+            padding: 3rem;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .map-container:hover::before {
+            opacity: 1;
+        }
+
+        .map-container:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 35px 100px rgba(102, 126, 234, 0.3);
+        }
+
+        .map-placeholder {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px dashed rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 5rem 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s ease;
+        }
+
+        .map-placeholder:hover {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .map-placeholder i {
+            font-size: 4rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .map-placeholder h4 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .map-placeholder p {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
         }
 
         /* FAQ Section */
         .faq-section {
-            padding: 80px 0;
-            background: #111111;
+            padding: 120px 0;
+            background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
         }
 
         .faq-item {
-            background: #1a1a1a;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(102, 126, 234, 0.1);
             overflow: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
         }
 
         .faq-question {
-            padding: 1.5rem;
+            padding: 2rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: all 0.3s ease;
+            position: relative;
         }
 
-        .faq-question:hover {
-            background: rgba(102, 126, 234, 0.1);
+        .faq-question::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .faq-question:hover::before {
+            opacity: 1;
         }
 
         .faq-question h5 {
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 700;
             margin: 0;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
         }
 
         .faq-icon {
             color: #667eea;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
         }
 
         .faq-answer {
-            padding: 0 1.5rem 1.5rem;
-            color: rgba(255, 255, 255, 0.7);
+            padding: 0 2rem 2rem;
+            color: rgba(255, 255, 255, 0.8);
             display: none;
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
 
         .faq-item.active .faq-icon {
@@ -334,6 +655,21 @@
 
         .faq-item.active .faq-answer {
             display: block;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
         }
 
         /* Responsive Design */
@@ -342,97 +678,201 @@
                 font-size: 2.5rem;
             }
             
+            .section-title {
+                font-size: 2rem;
+            }
+            
             .contact-form,
             .contact-info {
-                padding: 2rem;
+                padding: 2.5rem;
                 margin-bottom: 2rem;
             }
             
             .contact-item {
                 flex-direction: column;
                 text-align: center;
+                padding: 1.5rem;
             }
             
             .contact-icon {
                 margin-right: 0;
-                margin-bottom: 1rem;
+                margin-bottom: 1.5rem;
             }
+            
+            .hours-card {
+                padding: 2.5rem;
+            }
+            
+            .map-placeholder {
+                padding: 3rem 2rem;
+            }
+            
+            .faq-question {
+                padding: 1.5rem;
+            }
+            
+            .faq-answer {
+                padding: 0 1.5rem 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .contact-form {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .contact-info {
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        .hours-card,
+        .map-container {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .faq-item {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .faq-item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .faq-item:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .faq-item:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .faq-item:nth-child(5) {
+            animation-delay: 0.4s;
         }
     </style>
 </head>
 <body>
-    <!-- Modern Navbar -->
-    <!-- Standard Public Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">
-            <div class="brand-icon">
-                <i class="fas fa-dumbbell"></i>
+    <!-- Premium Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="brand-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                FlexFusion Elite
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home-page.html">Memberships</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="classes.html">Classes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                </ul>
             </div>
-            FlexFusion Elite
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="classes.html">Classes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.html">Login</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="registration.html" style="background: #667eea; border-radius: 20px; padding: 8px 15px; color: white !important;">Register</a>
-                </li>
-            </ul>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
-            <h1 class="hero-title">Get In Touch</h1>
-            <p class="hero-subtitle">Ready to start your fitness journey? Contact us today and let's transform your life together</p>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-comments"></i>
+                    Get In Touch
+                </div>
+                <h1 class="hero-title">Let's Start Your Journey</h1>
+                <p class="hero-subtitle">Ready to transform your life? Contact our expert team today and discover how FlexFusion Elite can help you achieve your fitness goals.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Contact Form & Info -->
+    <!-- Contact Section -->
     <section class="contact-section">
         <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Contact Us</div>
+                <h2 class="section-title">We're Here to Help</h2>
+                <p class="section-subtitle">Have questions? Need guidance? Our team is ready to support your fitness journey every step of the way.</p>
+            </div>
+            
             <div class="row">
-                <div class="col-lg-8 mb-4">
+                <div class="col-lg-7 mb-4 mb-lg-0">
                     <div class="contact-form">
-                        <h2 class="section-title">Send Us a Message</h2>
+                        <div class="success-message" id="successMessage">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Message sent successfully! We'll get back to you within 24 hours.</span>
+                        </div>
+                        
+                        <h2 class="form-title">Send Us a Message</h2>
                         <form id="contactForm">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="firstName">First Name</label>
-                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your first name" required>
+                                        <label for="firstName">First Name *</label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your first name" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="lastName">Last Name</label>
-                                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Your last name" required>
+                                        <label for="lastName">Last Name *</label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter your last name" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">Email Address</label>
+                                        <label for="email">Email Address *</label>
                                         <input type="email" class="form-control" id="email" name="email" placeholder="your.email@example.com" required>
                                     </div>
                                 </div>
@@ -444,7 +884,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="subject">Subject</label>
+                                <label for="subject">Subject *</label>
                                 <select class="form-control" id="subject" name="subject" required>
                                     <option value="">Select a subject</option>
                                     <option value="membership">Membership Inquiry</option>
@@ -452,29 +892,32 @@
                                     <option value="classes">Group Classes</option>
                                     <option value="facilities">Facilities Tour</option>
                                     <option value="corporate">Corporate Memberships</option>
+                                    <option value="nutrition">Nutrition Consultation</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea class="form-control" id="message" name="message" placeholder="Tell us how we can help you achieve your fitness goals..." required></textarea>
+                                <label for="message">Message *</label>
+                                <textarea class="form-control" id="message" name="message" placeholder="Tell us about your fitness goals and how we can help you achieve them..." required></textarea>
                             </div>
                             <button type="submit" class="btn-submit">
-                                <i class="fas fa-paper-plane"></i> Send Message
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Send Message</span>
                             </button>
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                
+                <div class="col-lg-5">
                     <div class="contact-info">
-                        <h2 class="section-title">Contact Information</h2>
+                        <h2 class="form-title">Contact Information</h2>
                         
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="contact-details">
-                                <h4>Visit Us</h4>
+                                <h4>Visit Our Gym</h4>
                                 <p>1st Floor Canara Mall<br>Udupi, Karnataka 576101<br>India</p>
                             </div>
                         </div>
@@ -485,7 +928,7 @@
                             </div>
                             <div class="contact-details">
                                 <h4>Call Us</h4>
-                                <p>+91 9265684017<br>+91 8123456789</p>
+                                <p>+91 9265684017<br>Available 24/7</p>
                             </div>
                         </div>
 
@@ -495,7 +938,7 @@
                             </div>
                             <div class="contact-details">
                                 <h4>Email Us</h4>
-                                <p>info@flexfusionelite.com<br>support@flexfusionelite.com</p>
+                                <p>oneplus6750@gmail.com<br>Quick response guaranteed</p>
                             </div>
                         </div>
 
@@ -505,7 +948,7 @@
                             </div>
                             <div class="contact-details">
                                 <h4>Follow Us</h4>
-                                <p>@FlexFusionElite<br>Social Media</p>
+                                <p>@FlexFusionElite<br>Stay connected with us</p>
                             </div>
                         </div>
                     </div>
@@ -517,10 +960,16 @@
     <!-- Operating Hours -->
     <section class="hours-section">
         <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Operating Hours</div>
+                <h2 class="section-title">When We're Open</h2>
+                <p class="section-subtitle">Flexible hours designed to fit your busy lifestyle</p>
+            </div>
+            
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <div class="hours-card">
-                        <h2 class="hours-title">Operating Hours</h2>
+                        <h3 class="hours-title">Gym Hours</h3>
                         <ul class="hours-list">
                             <li class="hours-item">
                                 <span class="hours-day">Monday - Friday</span>
@@ -531,12 +980,8 @@
                                 <span class="hours-time">6:00 AM - 10:00 PM</span>
                             </li>
                             <li class="hours-item">
-                                <span class="hours-day">Sunday</span>
-                                <span class="hours-time">7:00 AM - 9:00 PM</span>
-                            </li>
-                            <li class="hours-item">
                                 <span class="hours-day">Platinum Members</span>
-                                <span class="hours-time">24/7 Access</span>
+                                <span class="hours-time">24/7 Access Available</span>
                             </li>
                         </ul>
                     </div>
@@ -548,13 +993,20 @@
     <!-- Map Section -->
     <section class="map-section">
         <div class="container">
-            <h2 class="section-title text-center mb-5">Find Us</h2>
+            <div class="section-header">
+                <div class="section-badge">Location</div>
+                <h2 class="section-title">Find Us</h2>
+                <p class="section-subtitle">Conveniently located in the heart of Udupi with easy access and parking</p>
+            </div>
+            
             <div class="map-container">
                 <div class="map-placeholder">
                     <i class="fas fa-map-marked-alt"></i>
-                    <h4>Interactive Map</h4>
-                    <p>1st Floor Canara Mall, Udupi, Karnataka</p>
-                    <p>Easy parking available | Public transport accessible</p>
+                    <h4>Interactive Map Coming Soon</h4>
+                    <p><strong>1st Floor Canara Mall, Udupi, Karnataka</strong></p>
+                    <p>✓ Ample parking available</p>
+                    <p>✓ Public transport accessible</p>
+                    <p>✓ Easy highway access</p>
                 </div>
             </div>
         </div>
@@ -563,56 +1015,61 @@
     <!-- FAQ Section -->
     <section class="faq-section">
         <div class="container">
-            <h2 class="section-title text-center mb-5">Frequently Asked Questions</h2>
+            <div class="section-header">
+                <div class="section-badge">FAQ</div>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Get quick answers to common questions about our services and memberships</p>
+            </div>
+            
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
-                            <h5>What are your membership options?</h5>
+                            <h5>What are your membership options and pricing?</h5>
                             <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>We offer three premium membership tiers: Basic Elite (₹1,000/month), Premium Elite (₹1,500/month), and Platinum Elite (₹3,000/month). Each tier includes different amenities and class access levels.</p>
+                            <p>We offer three premium membership tiers: <strong>Basic Elite (₹1,000/month)</strong> with access to gym equipment and basic classes, <strong>Premium Elite (₹1,500/month)</strong> with additional group classes and nutrition guidance, and <strong>Platinum Elite (₹3,000/month)</strong> with personal training, 24/7 access, and premium amenities.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
-                            <h5>Do you offer personal training?</h5>
+                            <h5>Do you offer personal training services?</h5>
                             <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>Yes! Personal training is included with Platinum memberships and available as an add-on for other tiers. Our certified trainers provide customized workout plans and one-on-one coaching.</p>
+                            <p>Personal training is included with Platinum memberships and available as an add-on for other tiers. Our certified trainers provide customized workout plans, form correction, and one-on-one coaching to help you achieve your specific fitness goals.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
-                            <h5>Can I try a class before joining?</h5>
+                            <h5>Can I try a class or tour the facility before joining?</h5>
                             <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>We offer complimentary trial classes and facility tours. Contact us to schedule your visit and experience our premium fitness environment firsthand.</p>
+                            <p>Yes! We offer complimentary trial classes and comprehensive facility tours. Contact us to schedule your visit and experience our premium fitness environment, meet our trainers, and see why FlexFusion Elite is the right choice for your fitness journey.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
-                            <h5>What safety measures do you have in place?</h5>
+                            <h5>What safety measures and protocols do you have?</h5>
                             <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>We maintain the highest safety standards with regular equipment maintenance, certified trainers, first aid stations, and comprehensive insurance coverage for all members.</p>
+                            <p>Safety is our top priority. We maintain the highest standards with regular equipment maintenance, certified trainers on-site, first aid stations, comprehensive insurance coverage, and strict hygiene protocols. All our trainers are CPR certified.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
-                            <h5>Do you have parking facilities?</h5>
+                            <h5>What parking and transportation options are available?</h5>
                             <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>Yes, we're located in Canara Mall with ample parking space available. Members receive validated parking during their workout sessions.</p>
+                            <p>We're conveniently located in Canara Mall with ample free parking available. Members receive validated parking during workout sessions. The location is also accessible by public transport with bus stops nearby and easy highway access.</p>
                         </div>
                     </div>
                 </div>
@@ -620,55 +1077,94 @@
         </div>
     </section>
 
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <script>
-        // Contact form submission
+        // Contact form submission with enhanced UX
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const submitBtn = document.querySelector('.btn-submit');
-            const originalText = submitBtn.innerHTML;
+            const submitText = submitBtn.querySelector('span');
+            const submitIcon = submitBtn.querySelector('i');
+            const successMessage = document.getElementById('successMessage');
             
             // Show loading state
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
+            submitIcon.className = 'fas fa-spinner fa-spin';
+            submitText.textContent = 'Sending...';
+            submitBtn.style.background = 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)';
             
             // Simulate form submission
             setTimeout(() => {
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                // Show success state
+                submitIcon.className = 'fas fa-check';
+                submitText.textContent = 'Message Sent!';
                 submitBtn.style.background = 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)';
                 
-                // Reset form
+                // Show success message
+                successMessage.style.display = 'flex';
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Reset form after delay
                 setTimeout(() => {
                     this.reset();
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
                     submitBtn.disabled = false;
-                    alert('Thank you for your message! We\'ll get back to you within 24 hours.');
-                }, 2000);
-            }, 1500);
+                    submitIcon.className = 'fas fa-paper-plane';
+                    submitText.textContent = 'Send Message';
+                    submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    
+                    // Hide success message
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }, 3000);
+            }, 2000);
         });
 
-        // FAQ toggle function
+        // Enhanced FAQ toggle function
         function toggleFaq(element) {
             const faqItem = element.parentElement;
             const isActive = faqItem.classList.contains('active');
             
-            // Close all FAQ items
+            // Close all FAQ items with animation
             document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
             });
             
-            // Open clicked item if it wasn't active
+            // Toggle clicked item
             if (!isActive) {
                 faqItem.classList.add('active');
+            } else {
+                faqItem.classList.remove('active');
             }
         }
 
-        // Animate elements on scroll
+        // Enhanced form validation
+        const formInputs = document.querySelectorAll('.form-control');
+        formInputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.style.borderColor = '#ef4444';
+                    this.style.boxShadow = '0 0 20px rgba(239, 68, 68, 0.3)';
+                } else {
+                    this.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    this.style.boxShadow = 'none';
+                }
+            });
+
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#667eea';
+                this.style.boxShadow = '0 0 30px rgba(102, 126, 234, 0.3)';
+            });
+        });
+
+        // Animate contact items on load
         window.addEventListener('load', function() {
             const contactItems = document.querySelectorAll('.contact-item');
             contactItems.forEach((item, index) => {
@@ -679,9 +1175,43 @@
                 setTimeout(() => {
                     item.style.opacity = '1';
                     item.style.transform = 'translateX(0)';
-                }, index * 200 + 300);
+                }, index * 200 + 500);
             });
         });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            document.body.style.transform = 'translateY(0)';
+        });
+
+        // Initialize page with loading state
+        document.body.style.opacity = '0';
+        document.body.style.transform = 'translateY(20px)';
+        document.body.style.transition = 'all 0.6s ease';
     </script>
 </body>
 </html>

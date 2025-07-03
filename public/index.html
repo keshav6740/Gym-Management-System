@@ -22,18 +22,32 @@
             overflow-x: hidden;
         }
 
+        /* Enhanced Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(240, 147, 251, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(118, 75, 162, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+
         /* Modern Navbar */
         .navbar {
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            background: rgba(10, 10, 10, 0.98);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         .navbar-brand {
@@ -42,18 +56,25 @@
             color: #ffffff !important;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
         }
 
         .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
+            width: 45px;
+            height: 45px;
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
 
         .nav-link {
@@ -62,16 +83,37 @@
             margin: 0 15px;
             transition: all 0.3s ease;
             position: relative;
+            padding: 8px 16px !important;
+            border-radius: 25px;
         }
 
         .nav-link:hover {
-            color: #667eea !important;
+            color: #ffffff !important;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
         }
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        
 
         /* Hero Section */
         .hero-section {
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
             display: flex;
             align-items: center;
             position: relative;
@@ -85,8 +127,21 @@
             left: 0;
             right: 0;
             bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(240, 147, 251, 0.2) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: url('/placeholder.svg?height=1080&width=1920') center/cover;
-            opacity: 0.1;
+            opacity: 0.05;
             z-index: 1;
         }
 
@@ -94,52 +149,88 @@
             position: relative;
             z-index: 2;
             text-align: center;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 2rem;
         }
 
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50px;
+            padding: 12px 24px;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #667eea;
+            backdrop-filter: blur(10px);
+        }
+
         .hero-title {
-            font-size: 4.5rem;
-            font-weight: 800;
+            font-size: 5rem;
+            font-weight: 900;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            background: linear-gradient(135deg, #667eea 0%, #ffffff 50%, #764ba2 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .hero-subtitle {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: rgba(255, 255, 255, 0.9);
             margin-bottom: 3rem;
-            font-weight: 400;
-            max-width: 600px;
+            font-weight: 300;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.7;
         }
 
         .btn-hero {
-            background: #ffffff;
-            color: #667eea;
-            padding: 18px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 45px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            gap: 12px;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
             border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-hero:hover::before {
+            left: 100%;
         }
 
         .btn-hero:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 25px 80px rgba(102, 126, 234, 0.6);
+            color: white;
             text-decoration: none;
         }
 
@@ -157,6 +248,88 @@
             color: #ffffff;
         }
 
+
+        /* --- ADD THESE NEW STYLES INSIDE YOUR <style> TAG IN index.html --- */
+/* Featured Classes Section */
+.featured-classes-section {
+    padding: 100px 0;
+    background: #111111;
+}
+
+.featured-classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-top: 4rem;
+}
+
+.featured-class-card {
+    background: #1a1a1a;
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-class-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.featured-class-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.featured-class-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.8rem;
+}
+
+.featured-class-description {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.featured-class-cta {
+    text-align: center;
+}
+
+.btn-learn-more {
+    background: transparent;
+    border: 2px solid #667eea;
+    color: #667eea;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-learn-more:hover {
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+}
+
+/* --- END OF NEW STYLES --- */
         .section-subtitle {
             text-align: center;
             font-size: 1.2rem;
@@ -340,31 +513,103 @@
 
         /* CTA Section */
         .cta-section {
-            padding: 100px 0;
+            padding: 50px 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
         }
 
         .cta-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
             color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .cta-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: rgba(255, 255, 255, 0.9);
             margin-bottom: 3rem;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .btn-cta {
+            background: #ffffff;
+            color: #667eea;
+            padding: 20px 45px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            border: none;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        /* Enhanced Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+            transition: all 0.4s ease;
+            z-index: 1000;
+            text-decoration: none;
+            backdrop-filter: blur(20px);
+        }
+
+        .fab:hover {
+            transform: scale(1.15) translateY(-5px);
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 25px 80px rgba(102, 126, 234, 0.6);
         }
 
         /* Animations */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(50px);
             transition: all 0.8s ease;
         }
 
@@ -373,94 +618,131 @@
             transform: translateY(0);
         }
 
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
             
             .hero-subtitle {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             
             .about-content {
-                padding: 2rem;
+                padding: 2.5rem;
             }
             
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .featured-classes-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .service-card {
+                padding: 2.5rem 2rem;
+            }
+            
+            .cta-title {
+                font-size: 2.5rem;
+            }
+            
+            .fab {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
             }
         }
 
-        /* Floating Action Button */
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(102, 126, 234, 0.3);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            text-decoration: none;
+            border-top-color: #667eea;
+            animation: spin 1s ease-in-out infinite;
         }
 
-        .fab:hover {
-            transform: scale(1.1);
-            color: white;
-            text-decoration: none;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            transform: translateZ(0);
+            transition: transform 0.1s ease-out;
         }
     </style>
 </head>
 <body>
     <!-- Modern Navbar -->
-    <!-- Standard Public Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">
-            <div class="brand-icon">
-                <i class="fas fa-dumbbell"></i>
+<nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="brand-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                FlexFusion Elite
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home-page.html">Memberships</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="classes.html">Classes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                </ul>
             </div>
-            FlexFusion Elite
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="classes.html">Classes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.html">Login</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="registration.html" style="background: #667eea; border-radius: 20px; padding: 8px 15px; color: white !important;">Register</a>
-                </li>
-            </ul>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero-section" id="home">
@@ -478,6 +760,28 @@
             </div>
         </div>
     </section>
+
+
+    <!-- Featured Classes Section (New) -->
+<section class="featured-classes-section">
+    <div class="container">
+        <div class="section-header" style="text-align:center; margin-bottom: 5rem;">
+            <div class="section-badge" style="display:inline-block; background:rgba(255,255,255,0.1); border-radius:25px; padding:8px 20px; color:#fff; margin-bottom:1.5rem;">OUR CLASSES</div>
+            <h2 class="section-title" style="font-size:3rem; font-weight:800; color:#fff;">Popular & Featured Classes</h2>
+            <p class="section-subtitle" style="font-size:1.2rem; color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto;">Discover some of our most sought-after fitness programs designed for all levels.</p>
+        </div>
+        
+        <div class="featured-classes-grid" id="featured-classes-grid">
+            <!-- Featured classes will be loaded dynamically here -->
+            <div class="col-12 text-center"><i class="fas fa-spinner fa-spin fa-2x"></i><p class="mt-2">Loading featured classes...</p></div>
+        </div>
+        <div class="text-center mt-5">
+            <a href="classes.html" class="btn-learn-more">
+                <i class="fas fa-arrow-right mr-2"></i> View All Classes
+            </a>
+        </div>
+    </div>
+</section>
 
     <!-- Services Section -->
     <section class="services-section" id="services">
@@ -635,6 +939,43 @@
     
     <script>
         // Scroll animations
+
+        // Add this new function to your index.html script
+const loadFeaturedClasses = async () => {
+    const grid = document.getElementById('featured-classes-grid');
+    try {
+        const classes = await fetch('/api/public/classes').then(res => res.json());
+        if (!classes || classes.length === 0) {
+            grid.innerHTML = `<div class="col-12 text-center"><p class="text-muted">No classes available.</p></div>`;
+            return;
+        }
+
+        // Show a few random or top classes
+        const featured = classes.sort(() => 0.5 - Math.random()).slice(0, 3); 
+
+        grid.innerHTML = featured.map(cls => `
+            <div class="featured-class-card">
+                <div class="featured-class-icon"><i class="fas fa-dumbbell"></i></div>
+                <h3 class="featured-class-title">${cls.name}</h3>
+                <p class="featured-class-description">${cls.description}</p>
+                <div class="featured-class-cta">
+                    <a href="classes.html" class="btn-learn-more">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        `).join('');
+
+    } catch (error) {
+        console.error('Failed to load featured classes:', error);
+        grid.innerHTML = `<div class="col-12 text-center"><p class="text-danger">Failed to load featured classes.</p></div>`;
+    }
+};
+
+// Call this function when the page loads
+document.addEventListener('DOMContentLoaded', loadFeaturedClasses);
+
+
         function animateOnScroll() {
             const elements = document.querySelectorAll('.fade-in');
             elements.forEach(element => {

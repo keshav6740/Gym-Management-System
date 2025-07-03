@@ -50,7 +50,19 @@ router.get('/profile', auth, async (req, res) => {
         if (!user) {
             return res.status(404).json({ msg: 'User not found' });
         }
-        res.json(user);
+
+        // Process booking dates for the activity heatmap
+        const activityDates = user.bookings.map(b => {
+            // Return date in YYYY-MM-DD format
+            return b.bookingDate.toISOString().split('T')[0];
+        });
+
+        // Send back a combined object
+        res.json({
+            profile: user,
+            activity: activityDates
+        });
+
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -129,6 +141,79 @@ router.delete('/profile', auth, async (req, res) => {
         res.status(500).json({ success: false, msg: 'Server Error. Could not delete account.' });
     }
 });
-// -----------------------------------------
+
+// @route   POST /api/user/bookings
+// @desc    Book a class for the logged-in user
+// @access  Private
+router.post('/bookings', auth, async (req, res) => {
+    const { classId, className, classSchedule } = req.body;
+    if (!classId || !className || !classSchedule) {
+        return res.status(400).json({ msg: 'Missing class information.' });
+    }
+    
+    try {
+        const user = await User.findById(req.user.id);
+        
+        // Check if already booked
+        if (user.bookings.some(booking => booking.classId.toString() === classId)) {
+            return res.status(400).json({ msg: 'You have already booked this class.' });
+        }
+
+        user.bookings.push({ classId, className, classSchedule });
+        await user.save();
+        res.status(201).json(user.bookings);
+
+    } catch (err) {
+        console.error('Booking error:', err.message);
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
+// @route   GET /api/user/bookings
+// @desc    Get all bookings for the logged-in user
+// @access  Private
+router.get('/bookings', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).populate('bookings.classId');
+        res.json(user.bookings);
+    } catch (err) {
+        console.error('Get bookings error:', err.message);
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
+// @route   DELETE /api/user/bookings/:bookingId
+// @desc    Cancel a class booking for the logged-in user
+// @access  Private
+router.delete('/bookings/:bookingId', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found.' });
+        }
+
+        // Find the index of the booking to remove
+        const removeIndex = user.bookings.findIndex(
+            booking => booking._id.toString() === req.params.bookingId
+        );
+
+        if (removeIndex === -1) {
+            return res.status(404).json({ msg: 'Booking not found.' });
+        }
+
+        // Remove the booking from the array
+        user.bookings.splice(removeIndex, 1);
+
+        await user.save();
+        
+        // Return the updated list of bookings
+        res.json(user.bookings);
+
+    } catch (err) {
+        console.error('Cancel booking error:', err.message);
+        res.status(500).json({ msg: 'Server Error' });
+    }
+});
+
 
 module.exports = router;

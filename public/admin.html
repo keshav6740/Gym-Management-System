@@ -107,7 +107,7 @@
         </div>
     </div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
@@ -115,114 +115,101 @@
     document.addEventListener('DOMContentLoaded', function() {
         // --- 1. SETUP AND AUTHENTICATION ---
         const adminToken = localStorage.getItem('adminToken');
-        if (!adminToken) {
-            window.location.href = 'admin-login.html';
-            return;
-        }
+        if (!adminToken) { window.location.href = 'admin-login.html'; return; }
 
         const contentArea = document.getElementById('content-area');
         const pageTitle = document.getElementById('pageTitle');
         const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
-        const modal = {
-            element: $('#formModal'),
-            title: document.getElementById('modalTitle'),
-            body: document.getElementById('modalBody'),
-            form: document.getElementById('modalForm')
-        };
+        const modal = { element: $('#formModal'), title: document.getElementById('modalTitle'), body: document.getElementById('modalBody'), form: document.getElementById('modalForm') };
         let currentView = 'dashboard';
 
-        // --- 2. API HELPER ---
+        // --- 2. ROBUST API HELPER ---
         const api = {
-            request: (endpoint, method = 'GET', body = null) => {
+            request: async (endpoint, method = 'GET', body = null) => {
                 const options = { method, headers: { 'Authorization': `Bearer ${adminToken}`, 'Content-Type': 'application/json' } };
                 if (body) options.body = JSON.stringify(body);
-                return fetch(endpoint, options).then(res => {
-                    if (res.status === 401 || res.status === 403) {
-                        localStorage.removeItem('adminToken'); window.location.href = 'admin-login.html'; throw new Error('Session expired.');
-                    }
-                    return res.json().then(data => {
-                        if (!res.ok) throw new Error(data.msg || `Request failed with status ${res.status}`);
-                        return data;
-                    });
-                });
+                const response = await fetch(endpoint, options);
+                if (response.status === 401 || response.status === 403) {
+                    localStorage.removeItem('adminToken'); window.location.href = 'admin-login.html'; throw new Error('Session expired.');
+                }
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.msg || `Request failed with status ${response.status}`);
+                return result;
             }
         };
 
         // --- 3. HTML RENDER FUNCTIONS ---
         const render = {
-            loading: () => `<div class="loading-placeholder"><i class="fas fa-spinner fa-spin"></i> Loading...</div>`,
-            error: (msg) => `<div class="alert alert-danger">${msg}</div>`,
-            dashboard: (stats, members) => {
-                const recentMembersRows = members.slice(0, 3).map(member => `
-                    <tr data-id="${member._id}">
-                        <td>${member.fullName}</td><td>${member.membership.plan || 'N/A'}</td>
-                        <td><span class="status-badge status-${(member.membership.paymentStatus || 'pending').toLowerCase()}">${member.membership.paymentStatus}</span></td>
-                    </tr>`).join('');
-                return `
+            loading: () => contentArea.innerHTML = `<div class="loading-placeholder"><i class="fas fa-spinner fa-spin"></i> Loading...</div>`,
+            error: (msg) => contentArea.innerHTML = `<div class="alert alert-danger">${msg}</div>`,
+            table: (title, headers, rows, addBtnText, view) => {
+                const tableRows = rows.join('');
+                contentArea.innerHTML = `
+                <div class="data-table">
+                    <div class="table-header"><h3 class="table-title">${title} (${rows.length})</h3><button class="btn btn-primary add-btn" data-view="${view}"><i class="fas fa-plus"></i> ${addBtnText}</button></div>
+                    <div class="table-responsive"><table class="table table-hover">
+                        <thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}<th>Actions</th></tr></thead>
+                        <tbody>${tableRows.length > 0 ? tableRows : `<tr><td colspan="${headers.length + 1}" class="text-center text-muted">No items found.</td></tr>`}</tbody>
+                    </table></div>
+                </div>`;
+            },
+            dashboard: (stats) => {
+                 contentArea.innerHTML = `
                     <div class="stats-grid">
-                        <div class="stat-card"><div class="stat-header"><div class="stat-icon members"><i class="fas fa-users"></i></div></div><div class="stat-number">${stats.totalMembers}</div><div class="stat-label">Total Members</div></div>
-                        <div class="stat-card"><div class="stat-header"><div class="stat-icon revenue"><i class="fas fa-rupee-sign"></i></div></div><div class="stat-number">₹${(stats.monthlyRevenue / 100000).toFixed(1)}L</div><div class="stat-label">Est. Revenue</div></div>
-                        <div class="stat-card"><div class="stat-header"><div class="stat-icon classes"><i class="fas fa-dumbbell"></i></div></div><div class="stat-number">${stats.totalClasses}</div><div class="stat-label">Total Classes</div></div>
-                        <div class="stat-card"><div class="stat-header"><div class="stat-icon equipment"><i class="fas fa-user-tie"></i></div></div><div class="stat-number">${stats.totalTrainers}</div><div class="stat-label">Total Trainers</div></div>
+                        <div class="stat-card"><div class="stat-header"><div class="stat-icon members" style="background: #667eea;"><i class="fas fa-users"></i></div></div><div class="stat-number">${stats.totalMembers}</div><div class="stat-label">Total Members</div></div>
+                        <div class="stat-card"><div class="stat-header"><div class="stat-icon revenue" style="background: #4ecdc4;"><i class="fas fa-rupee-sign"></i></div></div><div class="stat-number">₹${(stats.monthlyRevenue / 100000).toFixed(1)}L</div><div class="stat-label">Est. Revenue</div></div>
+                        <div class="stat-card"><div class="stat-header"><div class="stat-icon classes" style="background: #f093fb;"><i class="fas fa-dumbbell"></i></div></div><div class="stat-number">${stats.totalClasses}</div><div class="stat-label">Total Classes</div></div>
+                        <div class="stat-card"><div class="stat-header"><div class="stat-icon equipment" style="background: #ffd89b;"><i class="fas fa-user-tie"></i></div></div><div class="stat-number">${stats.totalTrainers}</div><div class="stat-label">Total Trainers</div></div>
                     </div>
                     <div class="quick-actions">
                         <a href="#" class="quick-action-btn" data-action="add-member"><i class="fas fa-user-plus"></i><div>Add New Member</div></a>
                         <a href="#" class="quick-action-btn" data-action="add-class"><i class="fas fa-calendar-plus"></i><div>Add New Class</div></a>
                         <a href="#" class="quick-action-btn" data-action="add-trainer"><i class="fas fa-user-tie"></i><div>Add New Trainer</div></a>
                         <a href="#" class="quick-action-btn" data-action="reports"><i class="fas fa-file-invoice"></i><div>Generate Report</div></a>
-                    </div>
-                    <div class="data-table">
-                        <div class="table-header"><h3 class="table-title">Recent Members</h3><button class="btn btn-link" data-target="members" style="color:#ff6b6b;">View All</button></div>
-                        <table class="table"><thead><tr><th>Name</th><th>Plan</th><th>Status</th></tr></thead><tbody>${recentMembersRows}</tbody></table>
                     </div>`;
             },
-            table: (title, headers, rows, addBtnText, view) => `
-                <div class="data-table">
-                    <div class="table-header"><h3 class="table-title">${title} (${rows.length})</h3><button class="btn btn-primary add-btn" data-view="${view}"><i class="fas fa-plus"></i> ${addBtnText}</button></div>
-                    <div class="table-responsive"><table class="table table-hover">
-                        <thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}<th>Actions</th></tr></thead>
-                        <tbody>${rows.join('')}</tbody>
-                    </table></div>
-                </div>`,
-            placeholder: (title) => `<div class="data-table"><h3 class="table-title">${title}</h3><p>This section is under construction.</p></div>`,
-            analytics: () => `<div class="data-table"><h3 class="table-title">Analytics & Reports</h3><p>A comprehensive analytics dashboard with charts and data visualizations will be implemented here.</p></div>`,
-            settings: () => `<div class="data-table"><h3 class="table-title">Settings</h3><p>Settings for the admin panel, such as notification preferences, theme adjustments, and integration keys, will be available here.</p></div>`,
-            memberForm: (m={}) => `...`, classForm: (c={}) => `...`, trainerForm: (t={}) => `...`
+            placeholder: (title) => contentArea.innerHTML = `<div class="data-table"><h3 class="table-title">${title}</h3><p>This section is under construction.</p></div>`,
+            memberForm: (m = {}) => { modal.title.textContent = m._id ? 'Edit Member' : 'Add New Member'; modal.body.innerHTML = `<input type="hidden" name="_id" value="${m._id||''}"><div class="form-row"><div class="form-group col-md-6"><label>Full Name</label><input type="text" class="form-control" name="fullName" value="${m.fullName||''}" required></div><div class="form-group col-md-6"><label>Email</label><input type="email" class="form-control" name="email" value="${m.email||''}" required></div></div><div class="form-row"><div class="form-group col-md-6"><label>Membership</label><select name="membership.plan" class="form-control"><option value="">None</option><option value="Basic" ${m.membership?.plan==='Basic'?'selected':''}>Basic</option><option value="Premium" ${m.membership?.plan==='Premium'?'selected':''}>Premium</option><option value="Platinum" ${m.membership?.plan==='Platinum'?'selected':''}>Platinum</option></select></div><div class="form-group col-md-6"><label>Status</label><select name="membership.paymentStatus" class="form-control"><option value="Pending" ${m.membership?.paymentStatus==='Pending'?'selected':''}>Pending</option><option value="Active" ${m.membership?.paymentStatus==='Active'?'selected':''}>Active</option><option value="Inactive" ${m.membership?.paymentStatus==='Inactive'?'selected':''}>Inactive</option></select></div></div><div class="form-group"><label>Password</label><input type="password" class="form-control" name="password" placeholder="${m._id?'Leave blank to keep current':'Required for new member'}"></div>`; },
+            classForm: (c={}) => { modal.title.textContent = c._id ? 'Edit Class' : 'Add New Class'; modal.body.innerHTML = `<input type="hidden" name="_id" value="${c._id || ''}"><div class="form-group"><label>Name</label><input type="text" class="form-control" name="name" value="${c.name || ''}" required></div><div class="form-group"><label>Description</label><textarea class="form-control" name="description" required>${c.description || ''}</textarea></div><div class="form-row"><div class="form-group col-md-6"><label>Trainer</label><input type="text" class="form-control" name="trainer" value="${c.trainer || ''}" required></div><div class="form-group col-md-6"><label>Schedule</label><input type="text" class="form-control" name="schedule" value="${c.schedule || ''}" placeholder="e.g., Mon, Wed 5 PM" required></div></div><div class="form-row"><div class="form-group col-md-6"><label>Difficulty</label><select class="form-control" name="difficulty" required><option value="Beginner" ${c.difficulty==='Beginner'?'selected':''}>Beginner</option><option value="Intermediate" ${c.difficulty==='Intermediate'?'selected':''}>Intermediate</option><option value="Advanced" ${c.difficulty==='Advanced'?'selected':''}>Advanced</option><option value="All Levels" ${c.difficulty==='All Levels'?'selected':''}>All Levels</option></select></div><div class="form-group col-md-6"><label>Max Size</label><input type="number" class="form-control" name="maxSize" value="${c.maxSize || 15}" required></div></div>`; },
+            trainerForm: (t={}) => { modal.title.textContent = t._id ? 'Edit Trainer' : 'Add New Trainer'; modal.body.innerHTML = `<input type="hidden" name="_id" value="${t._id||''}"><div class="form-row"><div class="form-group col-md-6"><label>Name</label><input type="text" class="form-control" name="name" value="${t.name||''}" required></div><div class="form-group col-md-6"><label>Email</label><input type="email" class="form-control" name="email" value="${t.email||''}" required></div></div><div class="form-group"><label>Specialty</label><input type="text" class="form-control" name="specialty" value="${t.specialty||''}" placeholder="e.g., Strength & Conditioning" required></div><div class="form-group"><label>Bio</label><textarea class="form-control" name="bio">${t.bio||''}</textarea></div>`; }
         };
-        render.memberForm = (m = {}) => { /* ... see below ... */ }; // (No changes needed, but will include for completeness)
-        render.classForm = (c = {}) => { /* ... see below ... */ };
-        render.trainerForm = (t = {}) => { /* ... see below ... */ };
 
-        // --- 4. PAGE LOAD LOGIC ---
         const pageHandlers = {
-            dashboard: async () => { const [stats, members] = await Promise.all([api.request('/api/admin/stats'), api.request('/api/admin/members')]); contentArea.innerHTML = render.dashboard(stats, members); },
-            members: async () => { const d = await api.request('/api/admin/members'); const h = ['Name','Email','Plan','Status','Joined']; const r = d.map(m=>`<tr data-id="${m._id}"><td>${m.fullName}</td><td>${m.email}</td><td>${m.membership.plan||'N/A'}</td><td><span class="status-badge status-${(m.membership.paymentStatus||'pending').toLowerCase()}">${m.membership.paymentStatus}</span></td><td>${new Date(m.joinDate).toLocaleDateString()}</td><td><button class="action-btn edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button></td></tr>`); contentArea.innerHTML = render.table('Members',h,r,'Add Member','members'); },
-            classes: async () => { const d = await api.request('/api/admin/classes'); const h = ['Name','Trainer','Schedule','Difficulty','Size']; const r = d.map(c=>`<tr data-id="${c._id}"><td>${c.name}</td><td>${c.trainer}</td><td>${c.schedule}</td><td>${c.difficulty}</td><td>${c.maxSize}</td><td><button class="action-btn edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button></td></tr>`); contentArea.innerHTML = render.table('Classes',h,r,'Add Class','classes'); },
-            trainers: async () => { const d = await api.request('/api/admin/trainers'); const h=['Name','Specialty','Email']; const r=d.map(t=>`<tr data-id="${t._id}"><td>${t.name}</td><td>${t.specialty}</td><td>${t.email}</td><td><button class="action-btn edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button></td></tr>`); contentArea.innerHTML = render.table('Trainers',h,r,'Add Trainer','trainers'); },
-            analytics: async () => contentArea.innerHTML = render.analytics(),
-            settings: async () => contentArea.innerHTML = render.settings()
+            dashboard: async () => { render.dashboard(await api.request('/api/admin/stats')); },
+            members: async () => { const d = await api.request('/api/admin/members'); const h = ['Name','Email','Plan','Status','Joined']; const r = d.map(m=>`<tr data-id="${m._id}"><td>${m.fullName}</td><td>${m.email}</td><td>${m.membership.plan||'N/A'}</td><td><span class="status-badge status-${(m.membership.paymentStatus||'pending').toLowerCase()}">${m.membership.paymentStatus}</span></td><td>${new Date(m.joinDate).toLocaleDateString()}</td><td><button class="action-btn edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button></td></tr>`); render.table('Members',h,r,'Add Member','members'); },
+            classes: async () => { const d = await api.request('/api/admin/classes'); const h = ['Name','Trainer','Schedule','Difficulty','Size']; const r = d.map(c=>`<tr data-id="${c._id}"><td>${c.name}</td><td>${c.trainer}</td><td>${c.schedule}</td><td>${c.difficulty}</td><td>${c.maxSize}</td><td><button class="action-btn edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button></td></tr>`); render.table('Classes',h,r,'Add Class','classes'); },
+            trainers: async () => { const d = await api.request('/api/admin/trainers'); const h=['Name','Specialty','Email']; const r=d.map(t=>`<tr data-id="${t._id}"><td>${t.name}</td><td>${t.specialty}</td><td>${t.email}</td><td><button class="action-btn edit-btn" title="Edit"><i class="fas fa-edit"></i></button><button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button></td></tr>`); render.table('Trainers',h,r,'Add Trainer','trainers'); },
+            analytics: async () => render.placeholder('Analytics & Reports'),
+            settings: async () => render.placeholder('Admin Settings')
         };
         
         const loadPage = async (target) => {
             currentView = target;
-            contentArea.innerHTML = render.loading();
-            const title = target.charAt(0).toUpperCase() + target.slice(1);
-            pageTitle.textContent = `${title} Overview`;
             navLinks.forEach(l => l.classList.toggle('active', l.dataset.target === target));
-            try { await pageHandlers[target](); } catch (error) { contentArea.innerHTML = render.error(error.message); }
+            pageTitle.textContent = `${target.charAt(0).toUpperCase() + target.slice(1)} Overview`;
+            render.loading();
+            try { await pageHandlers[target](); } catch (error) { render.error(error.message); }
         };
 
-        // --- 5. EVENT LISTENERS ---
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (this.id === 'logoutBtn') {
-                    localStorage.removeItem('adminToken'); window.location.href = 'admin-login.html';
-                } else {
-                    loadPage(this.dataset.target);
-                }
-            });
-        });
+        const handleModalOpen = async (view, id = null) => {
+    // FIX: Handle the special case for "classes" -> "class"
+    const formViewName = (view === 'classes') ? 'class' : view.slice(0, -1);
+    const formRenderer = render[formViewName + 'Form'];
+
+    if (!formRenderer) {
+        console.error("No form renderer found for view:", view);
+        return;
+    }
+
+    modal.form.dataset.view = view;
+    let data = {};
+    if (id) {
+        data = await api.request(`/api/admin/${view}/${id}`);
+    }
+    
+    formRenderer(data);
+    modal.element.modal('show');
+};
 
         contentArea.addEventListener('click', (e) => {
             const link = e.target.closest('button[data-target], a[data-target]');
@@ -232,38 +219,18 @@
             if (!btn) return;
             
             const id = btn.closest('tr')?.dataset.id;
+            const quickAction = btn.dataset.action;
             
-            // Handle Quick Actions from Dashboard
-            if(btn.classList.contains('quick-action-btn')) {
-                const action = btn.dataset.action;
-                if (action === 'add-member') handleModalOpen('members');
-                else if (action === 'add-class') handleModalOpen('classes');
-                else if (action === 'add-trainer') handleModalOpen('trainers');
-                else if (action === 'reports') loadPage('analytics');
-                return;
-            }
-
-            // Handle actions from within a table view
-            if (btn.classList.contains('add-btn')) handleModalOpen(btn.dataset.view);
+            if (quickAction) {
+                const viewMap = { 'add-member': 'members', 'add-class': 'classes', 'add-trainer': 'trainers' };
+                if (viewMap[quickAction]) handleModalOpen(viewMap[quickAction]);
+                else if (quickAction === 'reports') loadPage('analytics');
+            } else if (btn.classList.contains('add-btn')) handleModalOpen(btn.dataset.view);
             else if (btn.classList.contains('edit-btn')) handleModalOpen(currentView, id);
             else if (btn.classList.contains('delete-btn')) {
-                if (confirm('Are you sure?')) {
-                    api.request(`/api/admin/${currentView}/${id}`, 'DELETE').then(() => loadPage(currentView)).catch(err => alert(err.message));
-                }
+                if (confirm('Are you sure?')) api.request(`/api/admin/${currentView}/${id}`, 'DELETE').then(() => loadPage(currentView)).catch(err => alert(err.message));
             }
         });
-        
-        const handleModalOpen = async (view, id = null) => {
-            const formRenderer = render[view.slice(0, -1) + 'Form'];
-            if (!formRenderer) return;
-
-            modal.form.dataset.view = view; // Set the current view for the form
-            let data = {};
-            if (id) { data = await api.request(`/api/admin/${view}/${id}`); }
-            
-            formRenderer(data); // Render the correct form
-            modal.element.modal('show');
-        };
 
         modal.form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -271,15 +238,21 @@
             if(!view) return;
             
             const formData = new FormData(modal.form);
-            const data = Object.fromEntries(formData.entries());
+            const data = {};
+            formData.forEach((value, key) => {
+                // Handle nested objects like membership[plan]
+                if (key.includes('[')) {
+                    const [parent, child] = key.replace(']', '').split('[');
+                    if (!data[parent]) data[parent] = {};
+                    data[parent][child] = value;
+                } else {
+                    data[key] = value;
+                }
+            });
             const id = data._id;
             delete data._id;
 
-            if (view === 'members') {
-                if (!data.password) delete data.password;
-                data.membership = { plan: data['membership[plan]'], paymentStatus: data['membership[paymentStatus]'] };
-                delete data['membership[plan]']; delete data['membership[paymentStatus]'];
-            }
+            if (view === 'members' && !data.password) delete data.password;
             
             const endpoint = `/api/admin/${view}` + (id ? `/${id}` : '');
             const method = id ? 'PUT' : 'POST';
@@ -293,14 +266,18 @@
             }
         });
 
-        // --- 6. INITIAL PAGE LOAD ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.id === 'logoutBtn') {
+                    localStorage.removeItem('adminToken'); window.location.href = 'admin-login.html';
+                } else {
+                    loadPage(this.dataset.target);
+                }
+            });
+        });
+
         loadPage('dashboard');
-
-        // --- Full Modal Render Functions (Pasted here for brevity) ---
-        render.memberForm = (m = {}) => { modal.title.textContent = m._id ? 'Edit Member' : 'Add New Member'; modal.body.innerHTML = `<input type="hidden" name="_id" value="${m._id||''}"><div class="form-row"><div class="form-group col-md-6"><label>Full Name</label><input type="text" class="form-control" name="fullName" value="${m.fullName||''}" required></div><div class="form-group col-md-6"><label>Email</label><input type="email" class="form-control" name="email" value="${m.email||''}" required></div></div><div class="form-row"><div class="form-group col-md-6"><label>Membership</label><select name="membership[plan]" class="form-control"><option value="">None</option><option value="Basic" ${m.membership?.plan==='Basic'?'selected':''}>Basic</option><option value="Premium" ${m.membership?.plan==='Premium'?'selected':''}>Premium</option><option value="Platinum" ${m.membership?.plan==='Platinum'?'selected':''}>Platinum</option></select></div><div class="form-group col-md-6"><label>Status</label><select name="membership[paymentStatus]" class="form-control"><option value="Pending" ${m.membership?.paymentStatus==='Pending'?'selected':''}>Pending</option><option value="Active" ${m.membership?.paymentStatus==='Active'?'selected':''}>Active</option></select></div></div><div class="form-group"><label>Password</label><input type="password" class="form-control" name="password" placeholder="${m._id?'Leave blank to keep current':'Required'}"></div>`; };
-        render.classForm = (c={}) => { modal.title.textContent = c._id ? 'Edit Class' : 'Add New Class'; modal.body.innerHTML = `<input type="hidden" name="_id" value="${c._id || ''}"><div class="form-group"><label>Name</label><input type="text" class="form-control" name="name" value="${c.name || ''}" required></div><div class="form-group"><label>Description</label><textarea class="form-control" name="description" required>${c.description || ''}</textarea></div><div class="form-row"><div class="form-group col-md-6"><label>Trainer</label><input type="text" class="form-control" name="trainer" value="${c.trainer || ''}" required></div><div class="form-group col-md-6"><label>Schedule</label><input type="text" class="form-control" name="schedule" value="${c.schedule || ''}" placeholder="e.g., Mon, Wed 5 PM" required></div></div><div class="form-row"><div class="form-group col-md-6"><label>Difficulty</label><select class="form-control" name="difficulty" required><option value="Beginner" ${c.difficulty==='Beginner'?'selected':''}>Beginner</option><option value="Intermediate" ${c.difficulty==='Intermediate'?'selected':''}>Intermediate</option><option value="Advanced" ${c.difficulty==='Advanced'?'selected':''}>Advanced</option><option value="All Levels" ${c.difficulty==='All Levels'?'selected':''}>All Levels</option></select></div><div class="form-group col-md-6"><label>Max Size</label><input type="number" class="form-control" name="maxSize" value="${c.maxSize || 15}" required></div></div>`; };
-        render.trainerForm = (t={}) => { modal.title.textContent = t._id ? 'Edit Trainer' : 'Add New Trainer'; modal.body.innerHTML = `<input type="hidden" name="_id" value="${t._id||''}"><div class="form-row"><div class="form-group col-md-6"><label>Name</label><input type="text" class="form-control" name="name" value="${t.name||''}" required></div><div class="form-group col-md-6"><label>Email</label><input type="email" class="form-control" name="email" value="${t.email||''}" required></div></div><div class="form-group"><label>Specialty</label><input type="text" class="form-control" name="specialty" value="${t.specialty||''}" placeholder="e.g., Strength & Conditioning" required></div><div class="form-group"><label>Bio</label><textarea class="form-control" name="bio">${t.bio||''}</textarea></div>`; };
-
     });
     </script>
 </body>

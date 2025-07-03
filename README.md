@@ -38,8 +38,7 @@ Welcome to FlexFusion Elite, a full-stack web application designed to manage a p
 - **Dynamic Content Loading:** A single-page application feel within the admin panel, where content is loaded without page reloads.
 
 ## Live Demo
-*(Replace with your actual Render deployment URL)*
-**Application:** `https://gym-management-system-1-s1km.onrender.com/`
+**Application:** https://gym-management-system-1-s1km.onrender.com/
 
 
 ## Tech Stack

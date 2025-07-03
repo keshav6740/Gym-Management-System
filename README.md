@@ -2,8 +2,8 @@
 
 Welcome to FlexFusion Elite, a full-stack web application designed to manage a premium fitness center. This system provides a seamless experience for both gym members and administrators, featuring user registration, membership selection, class information, and a complete admin dashboard for managing the gym's operations.
 
- 
-*(Note: You should replace this with a real screenshot of your running application!)*
+ ## Live Demo
+**Application:** https://gym-management-system-1-s1km.onrender.com/
 
 ## Table of Contents
 - [Features](#features)
@@ -36,9 +36,6 @@ Welcome to FlexFusion Elite, a full-stack web application designed to manage a p
     - **Class Management:** Create, update, and delete fitness classes.
     - **Trainer Management:** Manage trainer profiles and information.
 - **Dynamic Content Loading:** A single-page application feel within the admin panel, where content is loaded without page reloads.
-
-## Live Demo
-**Application:** https://gym-management-system-1-s1km.onrender.com/
 
 
 ## Tech Stack

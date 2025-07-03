@@ -22,4 +22,7 @@
   "devDependencies": {
     "nodemon": "^3.1.10"
   }
+  "engines": { // <-- Add this section
+    "node": ">=18.0.0" 
+  }
 }

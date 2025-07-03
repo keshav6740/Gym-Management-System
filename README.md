@@ -1,92 +1,177 @@
-# Gym-Management-System
+# FlexFusion Elite - Gym Management System
 
+Welcome to FlexFusion Elite, a full-stack web application designed to manage a premium fitness center. This system provides a seamless experience for both gym members and administrators, featuring user registration, membership selection, class information, and a complete admin dashboard for managing the gym's operations.
 
-Welcome to the Gym Management System project! This system is designed to manage various aspects of a gym, including user registration, membership management, class attendance tracking, and more.
+ 
+*(Note: You should replace this with a real screenshot of your running application!)*
 
 ## Table of Contents
-
-1. [Features](#features)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Technologies Used](#technologies-used)
-5. [Contributing](#contributing)
-6. [License](#license)
+- [Features](#features)
+- [Live Demo](#live-demo)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Setup and Installation](#setup-and-installation)
+  - [Prerequisites](#prerequisites)
+  - [Installation Steps](#installation-steps)
+  - [Creating the First Admin User](#creating-the-first-admin-user)
+- [API Endpoints](#api-endpoints)
+- [Deployment](#deployment)
+- [Future Improvements](#future-improvements)
 
 ## Features
 
-- User registration and authentication
-- Membership management (Basic, Premium, Platinum)
-- Class selection and enrollment
-- Attendance marking for members
-- Admin dashboard for managing users, classes, and memberships
-- Responsive web design for seamless user experience on different devices
+### Member-Facing Features
+- **Modern Landing Page:** A visually appealing introduction to the gym.
+- **User Registration & Login:** Secure user authentication using JWT (JSON Web Tokens).
+- **Membership Selection:** Users can choose from Basic, Premium, and Platinum membership tiers.
+- **Dynamic Class Pages:** Dedicated pages for each membership tier, showing available classes.
+- **User Profile:** A personal dashboard for members to view their details and stats.
+- **Password & Profile Updates:** Members can securely update their name and password.
 
-## Installation
+### Admin Features
+- **Secure Admin Login:** Separate, secure login portal for administrators.
+- **Dynamic Dashboard:** At-a-glance view of key metrics like total members, revenue, classes, and trainers.
+- **Full CRUD Functionality:**
+    - **Member Management:** Add, view, edit, and delete gym members.
+    - **Class Management:** Create, update, and delete fitness classes.
+    - **Trainer Management:** Manage trainer profiles and information.
+- **Dynamic Content Loading:** A single-page application feel within the admin panel, where content is loaded without page reloads.
 
-1. Clone the repository to your local machine:
-   ```bash
-   git clone https://github.com/keshav6740/gym-management-system.git
-   ```
+## Live Demo
+*(Replace with your actual Render deployment URL)*
+**Application:** `https://gym-management-system-1-s1km.onrender.com/`
 
-2. Navigate to the project directory:
-   ```bash
-   cd gym-management-system
-   ```
 
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-4. Set up MySQL database:
-   - Create a MySQL database named `proj` or any preferred name.
-   - Import the database schema from `database_schema.sql` located in the project root directory.
+### Backend
+- **Node.js:** JavaScript runtime environment.
+- **Express.js:** Web application framework for Node.js.
+- **MongoDB:** NoSQL database for storing all application data.
+- **Mongoose:** Object Data Modeling (ODM) library for MongoDB and Node.js.
+- **JWT (jsonwebtoken):** For generating and verifying secure authentication tokens.
+- **bcrypt.js:** For hashing user passwords before storing them.
+- **dotenv:** For managing environment variables.
 
-5. Configure MySQL connection:
-   - Open `backend/server.js`.
-   - Modify the MySQL connection settings (`host`, `user`, `password`, `database`) according to your MySQL setup.
+### Frontend
+- **HTML5 & CSS3:** Core markup and styling.
+- **Bootstrap 4:** For responsive layout and pre-styled components.
+- **Vanilla JavaScript:** For DOM manipulation, API calls (`fetch`), and interactivity.
+- **Font Awesome:** For icons.
 
-6. Start the server:
-   ```bash
-   npm install -g nodemon
-   nodemon App.js
-   ```
+### Deployment
+- **Database:** MongoDB Atlas (M0 Free Tier)
+- **Web Service:** Render (Free Tier)
+- **Version Control:** Git & GitHub
 
-7. Access the application in your browser at `http://localhost:5000`.
+## Project Structure
+```
+/
+├── config/
+│   └── db.js             # Database connection logic
+├── middleware/
+│   └── authMiddleware.js # JWT verification middleware
+├── models/
+│   ├── Admin.js
+│   ├── User.js
+│   ├── Class.js
+│   └── Trainer.js
+├── public/               # All frontend HTML, CSS, JS files
+├── routes/
+│   ├── admin.js          # Admin CRUD routes
+│   ├── auth.js           # Registration & Login routes
+│   └── user.js           # Member-specific routes
+├── .env                  # Environment variables (local)
+├── .gitignore
+├── package.json
+├── README.md
+├── seedAdmin.js          # Script to create the first admin
+└── server.js             # Main Express server
+```
 
-## Usage
+## Setup and Installation
 
-- Register as a new user or log in if you already have an account.
-- Explore different membership plans and choose one that suits your needs.
-- Enroll in classes based on your selected membership.
-- Mark your attendance for classes through the user profile page.
-- Admins can access the admin dashboard to manage users, classes, and memberships.
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18.x or later recommended)
+- [MongoDB](https://www.mongodb.com/try/download/community) installed and running locally, OR a MongoDB Atlas account.
+- [Git](https://git-scm.com/)
 
-## Technologies Used
+### Installation Steps
 
-- Frontend:
-  - HTML, CSS, JavaScript
-  - Bootstrap (CSS framework)
-  - Font Awesome (icon library)
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/flexfusion-gym.git
+    cd flexfusion-gym
+    ```
 
-- Backend:
-  - Node.js with Express.js (Web framework)
-  - MySQL (Database)
-  - Body-parser (Middleware for parsing HTTP request bodies)
+2.  **Install backend dependencies:**
+    ```bash
+    npm install
+    ```
 
-## Contributing
+3.  **Create the environment variables file:**
+    Create a file named `.env` in the root of the project and add the following, replacing the values as needed:
+    ```
+    # For local MongoDB installation
+    MONGO_URI=mongodb://localhost:27017/flexfusionDB
 
-Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+    # OR, for a MongoDB Atlas cluster
+    # MONGO_URI=mongodb+srv://<user>:<password>@cluster-url...
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/my-feature`).
-3. Make your changes.
-4. Commit your changes (`git commit -am 'Add new feature'`).
-5. Push to the branch (`git push origin feature/my-feature`).
-6. Create a new Pull Request.
+    # A long, random string for JWT
+    JWT_SECRET=your_super_secret_random_string_here_12345
+    ```
 
-## License
+4.  **Start the development server:**
+    The server will run on `http://localhost:5000`.
+    ```bash
+    npm run dev
+    ```
 
-This project is licensed under the [MIT License](LICENSE).
+### Creating the First Admin User
+The application has no public admin registration page. To create the first admin, run the provided seed script.
 
----
+1.  Configure the desired admin credentials in `seedAdmin.js`.
+2.  Run the script from your terminal:
+    ```bash
+    npm run seed:admin
+    ```
+
+## API Endpoints
+A brief overview of the available API routes. All `/admin` and `/user` routes are protected.
+
+- **Authentication (`/api/auth`)**
+  - `POST /register`: Register a new user.
+  - `POST /login`: Log in a user.
+  - `POST /admin-login`: Log in an admin.
+
+- **User (`/api/user`)**
+  - `GET /profile`: Get the profile of the currently logged-in user.
+  - `PUT /profile`: Update the logged-in user's profile.
+  - `DELETE /profile`: Delete the logged-in user's account.
+  - `POST /membership`: Update the user's membership plan.
+
+- **Admin (`/api/admin`)**
+  - `GET /stats`: Get dashboard statistics.
+  - `GET /members`, `POST /members`: Manage all members.
+  - `GET /members/:id`, `PUT /members/:id`, `DELETE /members/:id`: Manage a single member.
+  - `GET /classes`, `POST /classes`, `PUT /classes/:id`, `DELETE /classes/:id`: CRUD for classes.
+  - `GET /trainers`, `POST /trainers`, `PUT /trainers/:id`, `DELETE /trainers/:id`: CRUD for trainers.
+
+## Deployment
+This project is configured for easy deployment on **Render**.
+
+1.  **Database:** Create a free MongoDB database on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/).
+2.  **Web Service:** Create a new "Web Service" on [Render](https://render.com) and connect it to your GitHub repository.
+3.  **Configuration:**
+    - **Build Command:** `npm install`
+    - **Start Command:** `npm start`
+4.  **Environment Variables:** Add your `MONGO_URI` (from Atlas) and `JWT_SECRET` in the Render dashboard environment settings.
+5.  **Seed Admin:** After the first deploy, use the "Shell" tab in Render to run `npm run seed:admin` to create your live admin user.
+
+## Future Improvements
+- [ ] **Class Booking System:** Implement the backend logic for users to book classes and for admins to see attendance.
+- [ ] **Payment Integration:** Integrate a payment gateway like Stripe or Razorpay for membership payments.
+- [ ] **Enhanced Analytics:** Build out the analytics page with charts (e.g., using Chart.js) to visualize gym growth and member activity.
+- [ ] **Password Reset:** Implement a "Forgot Password" feature using a token-based email service (e.g., Nodemailer + SendGrid).
+- [ ] **Image Uploads:** Allow admins to upload images for trainers and classes.

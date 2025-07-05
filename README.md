@@ -170,6 +170,5 @@ This project is configured for easy deployment on **Render**.
 ## Future Improvements
 - [ ] **Class Booking System:** Implement the backend logic for users to book classes and for admins to see attendance.
 - [ ] **Payment Integration:** Integrate a payment gateway like Stripe or Razorpay for membership payments.
-- [ ] **Enhanced Analytics:** Build out the analytics page with charts (e.g., using Chart.js) to visualize gym growth and member activity.
 - [ ] **Password Reset:** Implement a "Forgot Password" feature using a token-based email service (e.g., Nodemailer + SendGrid).
 - [ ] **Image Uploads:** Allow admins to upload images for trainers and classes.
